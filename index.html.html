@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programas Educativos Andalucía 2025/26 · Tierra de Maestros</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --orange: #F97316;
+    --orange-light: #FED7AA;
+    --blue: #1E40AF;
+    --blue-light: #DBEAFE;
+    --teal: #0D9488;
+    --teal-light: #CCFBF1;
+    --plum: #7C3AED;
+    --plum-light: #EDE9FE;
+    --gray-dark: #1F2937;
+    --gray-mid: #6B7280;
+    --gray-light: #F3F4F6;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #0F172A;
+    color: var(--gray-dark);
+    min-height: 100vh;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, #1E40AF 0%, #0D9488 50%, #7C3AED 100%);
+    padding: 36px 40px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  header h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  header h1 span { color: #FED7AA; }
+  header p {
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+  }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: #1E293B;
+    border-bottom: 3px solid #F97316;
+  }
+  .stat-box {
+    padding: 18px 20px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-box:last-child { border-right: none; }
+  .stat-num {
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, #F97316, #FBBF24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 3px;
+  }
+
+  /* ===== MAIN LAYOUT ===== */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+  }
+
+  /* ===== TYPE SELECTOR ===== */
+  .type-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .type-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .type-btn.all { background: white; color: #1F2937; border-color: #E5E7EB; }
+  .type-btn.all.active { background: #1F2937; color: white; border-color: #1F2937; }
+  .type-btn.tipo-a { background: var(--blue-light); color: var(--blue); border-color: var(--blue); }
+  .type-btn.tipo-a.active { background: var(--blue); color: white; }
+  .type-btn.tipo-b { background: var(--teal-light); color: var(--teal); border-color: var(--teal); }
+  .type-btn.tipo-b.active { background: var(--teal); color: white; }
+  .type-btn.tipo-c { background: var(--plum-light); color: var(--plum); border-color: var(--plum); }
+  .type-btn.tipo-c.active { background: var(--plum); color: white; }
+  .type-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+  /* ===== SECTION HEADER ===== */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border-left: 5px solid;
+  }
+  .section-header.a { background: #EFF6FF; border-color: var(--blue); }
+  .section-header.b { background: #F0FDF9; border-color: var(--teal); }
+  .section-header.c { background: #F5F3FF; border-color: var(--plum); }
+  .section-header .tipo-badge {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 16px; color: white; flex-shrink: 0;
+  }
+  .section-header.a .tipo-badge { background: var(--blue); }
+  .section-header.b .tipo-badge { background: var(--teal); }
+  .section-header.c .tipo-badge { background: var(--plum); }
+  .section-header h2 { font-size: 15px; font-weight: 800; line-height: 1.2; }
+  .section-header p { font-size: 12px; color: var(--gray-mid); font-weight: 600; margin-top: 2px; }
+
+  /* ===== CARDS GRID ===== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.22s;
+    border: 2px solid #F3F4F6;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .card.tipo-a::before { background: var(--blue); }
+  .card.tipo-b::before { background: var(--teal); }
+  .card.tipo-c::before { background: var(--plum); }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    border-color: transparent;
+  }
+  .card.tipo-a:hover { box-shadow: 0 8px 24px rgba(30,64,175,0.18); }
+  .card.tipo-b:hover { box-shadow: 0 8px 24px rgba(13,148,136,0.18); }
+  .card.tipo-c:hover { box-shadow: 0 8px 24px rgba(124,58,237,0.18); }
+
+  .card-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--gray-dark);
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: var(--gray-mid);
+    line-height: 1.5;
+    font-weight: 600;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .tag.tipo-a { background: var(--blue-light); color: var(--blue); }
+  .tag.tipo-b { background: var(--teal-light); color: var(--teal); }
+  .tag.tipo-c { background: var(--plum-light); color: var(--plum); }
+  .tag.orange { background: var(--orange-light); color: #C2410C; }
+  .tag.gray { background: #F3F4F6; color: var(--gray-mid); }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 20px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal-header {
+    padding: 24px 24px 18px;
+    border-bottom: 1px solid #F3F4F6;
+    position: relative;
+  }
+  .modal-tipo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .modal-tipo.a { background: var(--blue-light); color: var(--blue); }
+  .modal-tipo.b { background: var(--teal-light); color: var(--teal); }
+  .modal-tipo.c { background: var(--plum-light); color: var(--plum); }
+  .modal-icon { font-size: 32px; margin-bottom: 6px; display: block; }
+  .modal-title { font-size: 20px; font-weight: 900; color: var(--gray-dark); line-height: 1.2; }
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: #F3F4F6;
+    border: none;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gray-mid);
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: #E5E7EB; }
+  .modal-body { padding: 20px 24px 24px; }
+  .modal-section { margin-bottom: 18px; }
+  .modal-section:last-child { margin-bottom: 0; }
+  .modal-section h4 {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray-mid);
+    margin-bottom: 8px;
+  }
+  .modal-section p {
+    font-size: 13px;
+    color: var(--gray-dark);
+    line-height: 1.6;
+    font-weight: 600;
+  }
+  .modal-section ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .modal-section ul li {
+    font-size: 13px;
+    color: var(--gray-dark);
+    font-weight: 600;
+    display: flex; align-items: flex-start; gap: 8px;
+    line-height: 1.4;
+  }
+  .modal-section ul li::before {
+    content: '→';
+    flex-shrink: 0;
+    font-weight: 900;
+    margin-top: 1px;
+  }
+  .modal-tipo.a ~ .modal-section ul li::before { color: var(--blue); }
+  .modal .tipo-a-content ul li::before { color: var(--blue); }
+  .modal .tipo-b-content ul li::before { color: var(--teal); }
+  .modal .tipo-c-content ul li::before { color: var(--plum); }
+  .ef-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: linear-gradient(135deg, #F97316, #FBBF24);
+    color: white;
+    font-size: 11px; font-weight: 800;
+    padding: 4px 12px; border-radius: 20px;
+    margin-top: 8px;
+  }
+
+  /* ===== LEGEND ===== */
+  .legend {
+    background: #1E293B;
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .legend-item h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+  .legend-item.a h4 { color: #93C5FD; }
+  .legend-item.b h4 { color: #5EEAD4; }
+  .legend-item.c h4 { color: #C4B5FD; }
+  .legend-item p { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: 600; line-height: 1.4; }
+
+  /* ===== HIDDEN ===== */
+  .hidden { display: none !important; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 16px;
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .legend { grid-template-columns: 1fr; }
+    header h1 { font-size: 22px; }
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">Tierra de Maestros · EF Primaria</div>
+  <h1>Programas Educativos <span>Andalucía</span></h1>
+  <p>Consejería de Desarrollo Educativo y Formación Profesional · Curso 2025/26</p>
+</header>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-box"><div class="stat-num">30+</div><div class="stat-label">Programas totales</div></div>
+  <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Tipos de participación</div></div>
+  <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">Relevantes para EF</div></div>
+  <div class="stat-box"><div class="stat-num">2025/26</div><div class="stat-label">Curso vigente</div></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TYPE SELECTOR -->
+  <div class="type-selector">
+    <button class="type-btn all active" onclick="filter('all', this)">🔎 Todos</button>
+    <button class="type-btn tipo-a" onclick="filter('tipo-a', this)"><span class="dot"></span> Tipo A · Oficio</button>
+    <button class="type-btn tipo-b" onclick="filter('tipo-b', this)"><span class="dot"></span> Tipo B · Conv. General</button>
+    <button class="type-btn tipo-c" onclick="filter('tipo-c', this)"><span class="dot"></span> Tipo C · Conv. Específica</button>
+  </div>
+
+  <!-- TIPO A -->
+  <div class="section-group" id="group-tipo-a">
+    <div class="section-header a">
+      <div class="tipo-badge">A</div>
+      <div>
+        <h2>Participación de Oficio</h2>
+        <p>Todos los centros participan automáticamente · Sin solicitud previa</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card tipo-a" onclick="openModal('bienestar')">
+        <span class="card-icon">🧠</span>
+        <div class="card-title">Bienestar Emocional</div>
+        <div class="card-desc">Marco de referencia para la salud mental del alumnado, prevención de conductas suicidas y acompañamiento en situaciones de duelo.</div>
+        <div class="card-tags"><span class="tag tipo-a">Tipo A</span><span class="tag orange">⭐ Clave EF</span></div>
+      </div>
+
+      <div class="card tipo-a" onclick="openModal('bibliotecas')">
+        <span class="card-icon">📚</span>
+        <div class="card-title">Bibliotecas Escolares</div>
+        <div class="card-desc">Red educativa de apoyo a bibliotecas escolares con herramientas como Biblioweb, formación y acompañamiento pedagógico provincial.</div>
+        <div class="card-tags"><span class="tag tipo-a">Tipo A</span><span class="tag gray">Plan lector</span></div>
+      </div>
+
+      <div class="card tipo-a" onclick="openModal('codigo')">
+        <span class="card-icon">💻</span>
+        <div class="card-title">Código Escuela 4.0</div>
+        <div class="card-desc">Desarrollo del pensamiento computacional, programación, robótica e IA. Dotación de equipamiento específico para los centros.</div>
+        <div class="card-tags"><span class="tag tipo-a">Tipo A</span><span class="tag gray">Competencia digital</span></div>
+      </div>
+
+      <div class="card tipo-a" onclick="openModal('pad')">
+        <span class="card-icon">📱</span>
+        <div class="card-title">Plan de Actuación Digital</div>
+        <div class="card-desc">Impulso de capacidades digitales para mejorar la calidad de la enseñanza. Coordinado por la persona TDE del centro.</div>
+        <div class="card-tags"><span class="tag tipo-a">Tipo A</span><span class="tag gray">Transformación digital</span></div>
+      </div>
+
+      <div class="card tipo-a" onclick="openModal('inclusiva')">
+        <span class="card-icon">♿</span>
+        <div class="card-title">Educación Inclusiva</div>
+        <div class="card-desc">Garantiza la detección e intervención temprana y atención especializada para el alumnado con NEAE. Fundamental en la PD.</div>
+        <div class="card-tags"><span class="tag tipo-a">Tipo A</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">DUA · NEAE</span></div>
+      </div>
+
+      <div class="card tipo-a" onclick="openModal('inclusivamas')">
+        <span class="card-icon">🌟</span>
+        <div class="card-title">Educación Inclusiva +</div>
+        <div class="card-desc">Destinada al alumnado con NEE. Impulsa proyectos educativos inclusivos para mejorar la equidad y eliminar barreras en todas las etapas.</div>
+        <div class="card-tags"><span class="tag tipo-a">Tipo A</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">NEE</span></div>
+      </div>
+
+      <div class="card tipo-a" onclick="openModal('igualdad')">
+        <span class="card-icon">⚖️</span>
+        <div class="card-title">Plan de Igualdad de Género</div>
+        <div class="card-desc">Marco para trabajar la igualdad entre mujeres y hombres, transversalidad de género y eliminación de desigualdades en los centros.</div>
+        <div class="card-tags"><span class="tag tipo-a">Tipo A</span><span class="tag orange">⭐ Clave EF</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIPO B -->
+  <div class="section-group" id="group-tipo-b">
+    <div class="section-header b">
+      <div class="tipo-badge">B</div>
+      <div>
+        <h2>Convocatoria General</h2>
+        <p>Participación voluntaria · Solicitud en Séneca · Sin convocatoria específica</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card tipo-b" onclick="openModal('hvs')">
+        <span class="card-icon">🏃</span>
+        <div class="card-title">Hábitos de Vida Saludable</div>
+        <div class="card-desc">Desarrolla competencias de promoción de la salud y estilos de vida saludables. Líneas: Creciendo en Salud, Mediadores en Salud y Forma Joven.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Salud · Actividad física</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('aldea')">
+        <span class="card-icon">🌿</span>
+        <div class="card-title">ALDEA</div>
+        <div class="card-desc">Educación ambiental ante la emergencia climática. Promueve competencias ecosociales y conexión con la naturaleza.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">Sostenibilidad</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('conred')">
+        <span class="card-icon">🛡️</span>
+        <div class="card-title">ConRed</div>
+        <div class="card-desc">Prevención del acoso escolar y ciberacoso. Requiere equipo impulsor en el centro y al menos 2 docentes con formación específica.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">Convivencia</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('ada')">
+        <span class="card-icon">📲</span>
+        <div class="card-title">ADA · Alumnado Ayudante Digital</div>
+        <div class="card-desc">Erradicación del ciberacoso entre iguales y uso responsable de las TIC. Mejora la Alfabetización Mediática e Informacional.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">TIC · Convivencia</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('comunica')">
+        <span class="card-icon">🎙️</span>
+        <div class="card-title">ComunicA</div>
+        <div class="card-desc">Mejora la competencia en comunicación lingüística: leer, escribir, escuchar y hablar. Integra radio escolar y alfabetización mediática.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">CCL</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('aulajaque')">
+        <span class="card-icon">♟️</span>
+        <div class="card-title">AulaDjaque</div>
+        <div class="card-desc">Beneficios del ajedrez en el ámbito educativo. Recurso metodológico transversal para abordar el currículo desde un enfoque lúdico y competencial.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">Juego · Pensamiento</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('culturales')">
+        <span class="card-icon">🎨</span>
+        <div class="card-title">Programas Culturales</div>
+        <div class="card-desc">Acceso a bienes culturales y patrimonio andaluz. Proyectos interdisciplinarios vivenciales que conectan la escuela con el entorno cultural.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">Expresión · Arte</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('emprendimiento')">
+        <span class="card-icon">💡</span>
+        <div class="card-title">Emprendimiento Educativo</div>
+        <div class="card-desc">Actitud proactiva, autonomía y capacidad de asumir responsabilidades. Cultura emprendedora vinculada a la sostenibilidad y transformación social.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">CE · CPSAA</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('stem')">
+        <span class="card-icon">🔬</span>
+        <div class="card-title">STEM</div>
+        <div class="card-desc">Competencias científicas, tecnológicas, matemáticas e ingeniería desde enfoque interdisciplinar, igualitario y práctico. Fomenta vocaciones STEM.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">STEM · Ciencia</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('eep')">
+        <span class="card-icon">🕊️</span>
+        <div class="card-title">Escuela: Espacio de Paz</div>
+        <div class="card-desc">Mejora de planes de convivencia desde 5 ámbitos: gestión, participación, valores, prevención de riesgos e intervención paliativa.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Convivencia</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('fenix')">
+        <span class="card-icon">🦅</span>
+        <div class="card-title">Fénix Andalucía</div>
+        <div class="card-desc">Reducción de desigualdades en poblaciones vulnerables. Actuaciones motivadoras para fomentar la asistencia y la orientación vocacional.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">Equidad · Inclusión</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('practicum')">
+        <span class="card-icon">🎓</span>
+        <div class="card-title">Prácticum</div>
+        <div class="card-desc">Marco para la formación inicial del futuro profesorado. Los centros acogen a estudiantes universitarios de titulaciones vinculadas a la docencia.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">Formación inicial</span></div>
+      </div>
+
+      <div class="card tipo-b" onclick="openModal('pebif')">
+        <span class="card-icon">🇵🇹</span>
+        <div class="card-title">PEBIF</div>
+        <div class="card-desc">Proyecto Escuelas Bilingües e Interculturales Fronterizas. Cooperación Portugal-España para el aprendizaje del portugués en contextos reales.</div>
+        <div class="card-tags"><span class="tag tipo-b">Tipo B</span><span class="tag gray">Bilingüismo</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIPO C -->
+  <div class="section-group" id="group-tipo-c">
+    <div class="section-header c">
+      <div class="tipo-badge">C</div>
+      <div>
+        <h2>Convocatoria Específica</h2>
+        <p>Solicitud en Séneca en plazo oficial · Criterios de selección · Dotación económica</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card tipo-c" onclick="openModal('intercambios')">
+        <span class="card-icon">🌍</span>
+        <div class="card-title">Intercambios Escolares</div>
+        <div class="card-desc">Intercambios con centros de países de habla alemana, china, francesa, inglesa, italiana y portuguesa. Actitudes positivas de convivencia internacional.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Movilidad</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('masdeporte')">
+        <span class="card-icon">⚽</span>
+        <div class="card-title">Más Deporte</div>
+        <div class="card-desc">Actividades deportivas extraescolares en zonas con oferta limitada, priorizando entornos rurales. Hábitos saludables y solidarios.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Deporte extraescolar</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('equidad')">
+        <span class="card-icon">⚖️</span>
+        <div class="card-title">Más Equidad</div>
+        <div class="card-desc">Cultura inclusiva e innovación activa y experimental. Mejora de recursos en el aula para fomentar autonomía, responsabilidad y trabajo en equipo.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Inclusión</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('frutas')">
+        <span class="card-icon">🍎</span>
+        <div class="card-title">Consumo de Frutas, Hortalizas y Leche</div>
+        <div class="card-desc">Reparto de frutas, hortalizas y leche cofinanciado con fondos europeos. Promovido con la Consejería de Agricultura y Salud.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Alimentación</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('repsa')">
+        <span class="card-icon">💚</span>
+        <div class="card-title">Red EPSA · Escuelas Promotoras de Salud</div>
+        <div class="card-desc">Estrategia educativa de la Consejería de Desarrollo Educativo para integrar la salud en el Proyecto Educativo de Centro.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Salud</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('ecoescuelas')">
+        <span class="card-icon">🌱</span>
+        <div class="card-title">Red Andaluza de Ecoescuelas</div>
+        <div class="card-desc">Centros comprometidos con la educación ambiental y sostenibilidad. Mejora del entorno escolar y conciencia ecológica.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Medio ambiente</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('aulasverdes')">
+        <span class="card-icon">🌳</span>
+        <div class="card-title">Proyecto Aulas Verdes Abiertas</div>
+        <div class="card-desc">Rediseño y renaturalización de espacios exteriores del centro, convirtiéndolos en entornos de aprendizaje sostenibles al aire libre.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Naturaleza · Espacios</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('investiga')">
+        <span class="card-icon">🔭</span>
+        <div class="card-title">Investiga y Descubre</div>
+        <div class="card-desc">Proyectos en horario no lectivo para alumnado con alto interés y motivación. Ampliación del currículo ordinario mediante mentorías.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Altas capacidades</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('pinpivmat')">
+        <span class="card-icon">🧪</span>
+        <div class="card-title">PINPIVMAT</div>
+        <div class="card-desc">Proyectos de innovación e investigación para la mejora de la práctica docente. Para profesorado en servicio activo en centros públicos andaluces.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Innovación docente</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('aps')">
+        <span class="card-icon">🤝</span>
+        <div class="card-title">Proyectos ApS · Aprendizaje-Servicio</div>
+        <div class="card-desc">Desarrollo de valores como solidaridad y empatía mediante aprendizajes académicos con utilidad real en el entorno más cercano.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">ApS · Comunidad</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('comunidades')">
+        <span class="card-icon">🏫</span>
+        <div class="card-title">Comunidades de Aprendizaje</div>
+        <div class="card-desc">Transformación del centro y su entorno mediante la participación de toda la comunidad educativa. Actuaciones Educativas de Éxito.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">AEE · Participación</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('refuerzoestival')">
+        <span class="card-icon">☀️</span>
+        <div class="card-title">Refuerzo Educativo Estival</div>
+        <div class="card-desc">Refuerzo en materias instrumentales y hábitos de vida saludable mediante actividades lúdico-deportivas en periodo estival.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag orange">⭐ Clave EF</span><span class="tag gray">Verano · Lúdico</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('proa')">
+        <span class="card-icon">🎯</span>
+        <div class="card-title">PROA Andalucía</div>
+        <div class="card-desc">Mejora de competencias clave y motivación para alumnado con NEAE de carácter compensatorio. Evita el abandono educativo temprano.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">NEAE compensatoria</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('prex')">
+        <span class="card-icon">🇬🇧</span>
+        <div class="card-title">PREX · Refuerzo Lengua Extranjera</div>
+        <div class="card-desc">Apoyo en lengua extranjera para centros no bilingües. Mejora comprensión y expresión oral/escrita desde edades tempranas.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Plurilingüismo</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('violencia')">
+        <span class="card-icon">🚫</span>
+        <div class="card-title">Pacto de Estado: Violencia de Género</div>
+        <div class="card-desc">Proyectos con actuaciones y medidas preventivas en materia de violencia de género. Solicitud por Séneca con proyecto adjunto.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Igualdad</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('mediadores')">
+        <span class="card-icon">💊</span>
+        <div class="card-title">Talleres de Sensibilización de Mediadores</div>
+        <div class="card-desc">Talleres formativos en colaboración con profesionales sanitarios. Requiere participar en HVS línea Mediadores en Salud.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Salud</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('picassomob')">
+        <span class="card-icon">🇫🇷</span>
+        <div class="card-title">PicassoMob</div>
+        <div class="card-desc">Movilidad franco-española para la enseñanza del francés. Fomenta la competencia plurilingüe y pluricultural y la cooperación internacional.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Movilidad · Francés</span></div>
+      </div>
+
+      <div class="card tipo-c" onclick="openModal('confucio')">
+        <span class="card-icon">🐉</span>
+        <div class="card-title">Aulas Confucio</div>
+        <div class="card-desc">Clases de chino mandarín, celebraciones culturales chinas, caligrafía, pintura, juegos tradicionales y posibilidad de becas a China.</div>
+        <div class="card-tags"><span class="tag tipo-c">Tipo C</span><span class="tag gray">Chino · Interculturalidad</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item a">
+      <h4>🔵 Tipo A · De Oficio</h4>
+      <p>Participan todos los centros automáticamente. Sin solicitud previa. Incluye Bienestar Emocional, Bibliotecas, Código 4.0, PAD, Ed. Inclusiva e Igualdad.</p>
+    </div>
+    <div class="legend-item b">
+      <h4>🟢 Tipo B · Conv. General</h4>
+      <p>Solicitud voluntaria en Séneca sin plazo específico. HVS, ALDEA, ConRed, ComunicA, STEM, Escuela Espacio de Paz, AprendizajeServicio...</p>
+    </div>
+    <div class="legend-item c">
+      <h4>🟣 Tipo C · Conv. Específica</h4>
+      <p>Convocatoria publicada anualmente en BOJA con plazo cerrado. Criterios de selección. Puede incluir dotación económica al centro.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">Tierra de Maestros · EF Primaria Málaga · Material de oposiciones</div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header" id="modalHeader">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <span class="modal-icon" id="modalIcon"></span>
+      <div class="modal-tipo" id="modalTipo"></div>
+      <div class="modal-title" id="modalTitle"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const programas = {
+  bienestar: {
+    icon: '🧠', tipo: 'a', tipoLabel: 'A · Participación de Oficio',
+    title: 'Bienestar Emocional',
+    desc: 'Marco de referencia para la implantación de iniciativas de salud mental y bienestar en los centros docentes andaluces no universitarios.',
+    objetivos: [
+      'Formación específica para el profesorado coordinador de bienestar',
+      'Formación para familias sobre prevención de conductas suicidas',
+      'Formación asociada a la Guía de acompañamiento en situaciones de duelo',
+      'Autocuidado emocional y bienestar docente',
+      'Intervención a través de Equipos Técnicos Provinciales (orientadores especializados)'
+    ],
+    ef: 'La salud mental, el autoconcepto y la gestión emocional son transversales a EF. Conecta directamente con los bloques de Expresión Corporal y Vida Activa.'
+  },
+  bibliotecas: {
+    icon: '📚', tipo: 'a', tipoLabel: 'A · Participación de Oficio',
+    title: 'Bibliotecas Escolares',
+    desc: 'Red educativa con apoyo técnico y pedagógico para responsables de bibliotecas escolares. Soportada en redes provinciales y herramientas como Biblioweb.',
+    objetivos: [
+      'Integrar los centros en una comunidad profesional de apoyo e innovación',
+      'Proporcionar formación y acompañamiento pedagógico provincial',
+      'Participación activa en la red profesional provincial',
+      'Completar cuestionario final en Séneca al acabar el curso'
+    ],
+    ef: 'Conecta con los cuentos motores (UD 8 – Biblioteca Narciso Díaz de Escovar) y con el Plan Lector. Instrucción 21/06/2023 de referencia.'
+  },
+  codigo: {
+    icon: '💻', tipo: 'a', tipoLabel: 'A · Participación de Oficio',
+    title: 'Código Escuela 4.0',
+    desc: 'Medidas para impulsar el pensamiento computacional, la programación, robótica e IA. Dotación de equipamiento específico a los centros.',
+    objetivos: [
+      'Mejorar competencias digitales del alumnado (pensamiento computacional)',
+      'Dotar a los centros del equipamiento necesario para su implementación',
+      'Red de Asesorías Técnicas de Innovación de referencia',
+      'Persona coordinadora designada en el centro'
+    ],
+    ef: 'La competencia digital (CD) es una de las 8 competencias clave de la LOMLOE. Relevante para el uso de tecnología en EF (apps de salud, sensores, vídeo-análisis).'
+  },
+  pad: {
+    icon: '📱', tipo: 'a', tipoLabel: 'A · Participación de Oficio',
+    title: 'Plan de Actuación Digital (PAD)',
+    desc: 'Continuidad al proceso de transformación digital iniciado en cursos anteriores. Convertir los centros en organizaciones digitalmente competentes.',
+    objetivos: [
+      'Planificar capacidades digitales para mejorar la calidad de la enseñanza',
+      'Favorecer el uso y diseño de herramientas digitales en E-A',
+      'Coordinado por la persona TDE del centro'
+    ],
+    ef: 'Complementa el Código Escuela 4.0. En EF: uso de herramientas digitales para registro de condición física, seguimiento de actividad, plataformas de evaluación.'
+  },
+  inclusiva: {
+    icon: '♿', tipo: 'a', tipoLabel: 'A · Participación de Oficio',
+    title: 'Educación Inclusiva',
+    desc: 'Garantiza la detección e intervención tempranas y atención especializada (PT, AL, PTIS, EOE) para alumnado con necesidad específica de apoyo educativo.',
+    objetivos: [
+      'Actualizar medidas de atención a la diversidad en primeras etapas',
+      'Impulsar la colaboración de las familias y sentimiento de pertenencia',
+      'Establecer procedimientos de detección precoz e intervención temprana',
+      'Asegurar atención especializada para el alumnado con NEAE'
+    ],
+    ef: 'Directamente vinculado al DUA 3.0 (CAST, 2024) en la PD. En EF: adaptaciones curriculares no significativas, papel del PT/PTIS en el aula, accesibilidad motriz.'
+  },
+  inclusivamas: {
+    icon: '🌟', tipo: 'a', tipoLabel: 'A · Participación de Oficio',
+    title: 'Educación Inclusiva +',
+    desc: 'Dirigida al alumnado con NEE (discapacidad o trastornos graves de conducta, comunicación y lenguaje). Impulsa proyectos educativos inclusivos en todos los centros.',
+    objetivos: [
+      'Impulsar un Proyecto Educativo inclusivo que mejore la equidad',
+      'Garantizar acceso, presencia y promoción del alumnado con NEE',
+      'Mejorar resultados educativos del alumnado con mayores barreras'
+    ],
+    ef: 'En EF: impacto directo en la adaptación de actividades para alumnado con NEE motriz, sensorial o cognitiva. Crucial para los supuestos prácticos de inclusión.'
+  },
+  igualdad: {
+    icon: '⚖️', tipo: 'a', tipoLabel: 'A · Participación de Oficio',
+    title: 'Plan de Igualdad de Género en Educación',
+    desc: 'Marco de referencia para la igualdad entre mujeres y hombres, transversalidad de género y eliminación de desigualdades. Requiere persona coordinadora obligatoria.',
+    objetivos: [
+      'Implementar planes de centro que mejoren la convivencia y el respeto a la diversidad',
+      'Trabajar la transversalidad de género en todas las áreas',
+      'Construir ciudadanía igualitaria y justa entre los sexos'
+    ],
+    ef: 'En EF: deporte inclusivo sin sesgos de género, coeducación motriz, análisis crítico de roles en actividades físico-deportivas. Transversal en todas las UDs.'
+  },
+  hvs: {
+    icon: '🏃', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'Hábitos de Vida Saludable',
+    desc: 'Contribuye al desarrollo integral del alumnado a través de la salud y el bienestar para mejorar la salud individual y comunitaria. Tres líneas de trabajo principales.',
+    objetivos: [
+      'Creciendo en Salud: entornos educativos saludables',
+      'Mediadores en Salud: alumnado formador de iguales',
+      'Forma Joven: recurso sanitario a demanda del centro',
+      'Promover hábitos de vida activa y alimentación saludable'
+    ],
+    ef: '⭐ EL programa más directamente vinculado a EF. Clave para UDs de Alimentación, Vida Activa, Condición Física e Higiene Postural. Imprescindible mencionar en la PD.'
+  },
+  aldea: {
+    icon: '🌿', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'ALDEA',
+    desc: 'Programa de educación ambiental ante la emergencia climática. Promueve la conexión con la naturaleza, competencia ecosocial y renaturalización de espacios.',
+    objetivos: [
+      'Impulsar educación para la sostenibilidad basada en participación activa',
+      'Desarrollar competencias ecosociales con aprendizajes prácticos',
+      'Potenciar trabajo en equipo y comunidades educativas comprometidas'
+    ],
+    ef: 'Conecta con la UD de Actividades en la Naturaleza (Playa de la Misericordia) y la UD de Calistenia en el Parque del Oeste. Competencia ecosocial.'
+  },
+  conred: {
+    icon: '🛡️', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'ConRed',
+    desc: 'Prevención del acoso escolar y ciberacoso. El centro debe crear un equipo impulsor y contar con al menos 2 docentes con formación específica (20 h).',
+    objetivos: [
+      'Formación y sensibilización de la comunidad educativa',
+      'Prevención y detección temprana del acoso y ciberacoso',
+      'Equipo impulsor en el centro con materiales específicos',
+      'Hasta 7 profesores del equipo impulsor por centro'
+    ],
+    ef: 'Vinculado al bloque de Valores y juego limpio (UD 3 – Patio). En EF: dinámica de grupos, resolución de conflictos, fair play.'
+  },
+  ada: {
+    icon: '📲', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'ADA · Alumnado Ayudante Digital Andaluz',
+    desc: 'Formación de alumnado como agentes de concienciación sobre el uso responsable de las TIC y la erradicación del ciberacoso entre iguales.',
+    objetivos: [
+      'Erradicar situaciones de ciberacoso entre iguales',
+      'Reflexionar sobre el uso responsable de nuevas tecnologías',
+      'Mejorar la Alfabetización Mediática e Informacional (AMI)'
+    ],
+    ef: 'Transversal. En EF: uso ético de redes sociales en el deporte, análisis crítico de imágenes corporales en medios digitales.'
+  },
+  comunica: {
+    icon: '🎙️', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'ComunicA',
+    desc: 'Mejora la competencia en comunicación lingüística del alumnado: leer, escribir, escuchar y hablar para la vida. Integra radio escolar y alfabetización mediática.',
+    objetivos: [
+      'Ofrecer recursos para mejorar la CCL del alumnado',
+      'Fomentar el uso de la radio escolar como recurso pedagógico',
+      'Relacionar lenguaje escrito con oral y otros lenguajes no verbales',
+      'Desarrollar alfabetización mediática y audiovisual'
+    ],
+    ef: 'En EF: vocabulario motriz, narración de experiencias motrices, instrucciones verbales precisas. Conecta con los cuentos motores (UD 8).'
+  },
+  aulajaque: {
+    icon: '♟️', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'AulaDjaque',
+    desc: 'Programa para dar a conocer los beneficios del ajedrez en el ámbito educativo. Recurso pedagógico transversal con enfoque lúdico, flexible y competencial.',
+    objetivos: [
+      'Familiarizar al alumnado con el ajedrez desde un enfoque lúdico',
+      'Herramienta metodológica para la reflexión y mejora docente',
+      'Abordar el currículo y SdA desde un enfoque transversal'
+    ],
+    ef: 'Comparte principios con los juegos de estrategia en EF. Pensamiento táctico, anticipación, gestión del tiempo. Conexión con juegos populares y tradicionales.'
+  },
+  culturales: {
+    icon: '🎨', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'Programas Culturales',
+    desc: 'Facilita el acceso del alumnado a bienes culturales andaluces. Proyectos interdisciplinarios y vivenciales que conectan la escuela con el entorno cultural.',
+    objetivos: [
+      'Potenciar competencia cultural y artística del alumnado',
+      'Favorecer el disfrute del patrimonio y la cultura andaluza',
+      'Promover creación colectiva, pensamiento crítico y expresión emocional',
+      'Establecer vínculos escuela-entorno-agentes culturales'
+    ],
+    ef: 'Conecta con la expresión corporal, los juegos populares y tradicionales como patrimonio cultural inmaterial. UD 7 (Residencia mayores) y UD 8 (Biblioteca).'
+  },
+  emprendimiento: {
+    icon: '💡', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'Emprendimiento Educativo',
+    desc: 'Actitud proactiva, creativa e innovadora. Cultura emprendedora vinculada a la sostenibilidad, la cooperación y la transformación social.',
+    objetivos: [
+      'Desarrollar actitud proactiva, creativa e innovadora',
+      'Fomentar autonomía, toma de decisiones y responsabilidad colectiva',
+      'Impulsar cultura emprendedora ligada a sostenibilidad y cooperación',
+      'Potenciar comunicación, trabajo en equipo y resolución de problemas'
+    ],
+    ef: 'En EF: diseño de juegos propios, organización de eventos deportivos, propuesta de proyectos de mejora del entorno activo del barrio.'
+  },
+  stem: {
+    icon: '🔬', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'STEM',
+    desc: 'Competencias científicas, tecnológicas, matemáticas e ingeniería desde un enfoque interdisciplinar, igualitario, creativo y práctico. Fomenta vocaciones científicas.',
+    objetivos: [
+      'Impulsar competencias STEM desde enfoque interdisciplinar e igualitario',
+      'Fomentar vocaciones científicas y tecnológicas',
+      'Proyectos en equipo: Retotech, HappyCode, Digicraft, ESERO'
+    ],
+    ef: 'En EF: biomecánica, análisis de rendimiento físico, uso de tecnología wearable, estadística en el deporte. Conexión con condición física y salud (UD 10).'
+  },
+  eep: {
+    icon: '🕊️', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'Escuela: Espacio de Paz',
+    desc: 'Red para la mejora de planes de convivencia desde 5 ámbitos: gestión, participación, promoción de valores, prevención de riesgos e intervención paliativa.',
+    objetivos: [
+      'Mejorar planes de convivencia desde múltiples ámbitos',
+      'Desarrollar valores, actitudes, habilidades y hábitos prosociales',
+      'Prevenir situaciones de riesgo para la convivencia',
+      'Formación específica, material didáctico y mentoría de zona'
+    ],
+    ef: 'Directamente relacionado con la UD 3 (Valores y juego limpio – Patio). En EF: deportividad, resolución pacífica de conflictos, cohesión de grupo.'
+  },
+  fenix: {
+    icon: '🦅', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'Fénix Andalucía',
+    desc: 'Reducción de desigualdades en poblaciones vulnerables mediante actuaciones motivadoras que fomentan la asistencia y la orientación vocacional.',
+    objetivos: [
+      'Reducir desigualdad en poblaciones más vulnerables',
+      'Actuaciones motivadoras que fomenten la asistencia al centro',
+      'Aumentar motivación y guiar hacia la superación y el esfuerzo',
+      'Impulsar la orientación vocacional del alumnado'
+    ],
+    ef: 'En EF: el deporte como factor de motivación e inclusión social. Conexión con la UD 12 (Socializar / Deportes Alternativos) y con el ApS intergeneracional.'
+  },
+  practicum: {
+    icon: '🎓', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'Prácticum',
+    desc: 'Marco para la formación inicial del profesorado. Acogida de estudiantes universitarios en prácticas para que adquieran competencias profesionales docentes.',
+    objetivos: [
+      'Formación inicial del futuro profesorado en centros andaluces',
+      'Ajustar la formación universitaria a las necesidades del SEA',
+      'Desarrollo y adquisición de competencias profesionales docentes'
+    ],
+    ef: 'Relevante para Jesús como tutor o colaborador de prácticas de EF. Los opositores habrán pasado por el Prácticum en su formación inicial.'
+  },
+  pebif: {
+    icon: '🇵🇹', tipo: 'b', tipoLabel: 'B · Convocatoria General',
+    title: 'PEBIF · Escuelas Bilingües e Interculturales Fronterizas',
+    desc: 'Proyecto de cooperación Portugal-España para el aprendizaje del portugués en contextos reales y el desarrollo de proyectos transfronterizos.',
+    objetivos: [
+      'Fomentar el aprendizaje del portugués en contextos reales',
+      'Promover la cooperación educativa Portugal-España',
+      'Impulsar bilingüismo e interculturalidad en territorios fronterizos',
+      'Formación al profesorado para proyectos internacionales'
+    ],
+    ef: 'Escasa vinculación directa con EF. Posible conexión con competencia plurilingüe e intercambios deportivos transfronterizos.'
+  },
+  intercambios: {
+    icon: '🌍', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Programa de Intercambios Escolares',
+    desc: 'Intercambios con centros educativos de países de habla alemana, china, francesa, inglesa, italiana y portuguesa. Convivencia y cooperación internacional.',
+    objetivos: [
+      'Perfeccionar el conocimiento de lenguas extranjeras (práctica real)',
+      'Adquirir actitudes positivas en el aprendizaje de idiomas',
+      'Desarrollar actitudes de convivencia y cooperación',
+      'Conocer la realidad cultural del país de intercambio'
+    ],
+    ef: 'Posible conexión con el deporte como lenguaje universal. Práctica deportiva compartida como herramienta de integración intercultural.'
+  },
+  masdeporte: {
+    icon: '⚽', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Más Deporte',
+    desc: 'Actividades deportivas extraescolares en zonas con oferta limitada, priorizando entornos rurales. Hábitos saludables, solidarios y desarrollo de habilidades deportivas.',
+    objetivos: [
+      'Desarrollar habilidades físico-técnico-tácticas y psíquicas deportivas',
+      'Contribuir a la educación en hábitos saludables y solidarios',
+      'Ofrecer actividades en zonas dispersas sin oferta deportiva suficiente',
+      'Se permite acceso de alumnado de centros concertados'
+    ],
+    ef: '⭐ El programa específicamente deportivo. EF es la especialidad que lidera este programa. Conexión directa con UDs de condición física, deportes y vida activa.'
+  },
+  equidad: {
+    icon: '⚖️', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Más Equidad',
+    desc: 'Potencia la cultura inclusiva del centro mejorando recursos en el aula mediante experiencias innovadoras, activas y experimentales.',
+    objetivos: [
+      'Potenciar la cultura inclusiva del centro',
+      'Mejorar grado de adquisición de competencias',
+      'Experiencias innovadoras, activas y experimentales',
+      'Principios de atención a la diversidad e igualdad de género'
+    ],
+    ef: 'En EF: metodologías activas (ABP, Retos Cooperativos, Ludificación) como herramientas de equidad. Conexión con DUA 3.0.'
+  },
+  frutas: {
+    icon: '🍎', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Consumo de Frutas, Hortalizas y Leche',
+    desc: 'Reparto de frutas, hortalizas y leche cofinanciado con fondos europeos. Promovido con la Consejería de Agricultura, Salud y Consumo.',
+    objetivos: [
+      'Fomentar el consumo de frutas, hortalizas y leche entre el alumnado',
+      'Dos modalidades de participación posibles'
+    ],
+    ef: 'Conecta directamente con la UD 2 (Alimentación – Comedor) y la UD 9 (Consumo responsable – Supermercados y tiendas). Hilo conductor del CEIP El Torcal.'
+  },
+  repsa: {
+    icon: '💚', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Red EPSA · Escuelas Promotoras de Salud de Andalucía',
+    desc: 'Estrategia educativa para integrar la salud en el Proyecto Educativo de Centro. Los centros deben reflejar necesidades detectadas y objetivos en la solicitud.',
+    objetivos: [
+      'Integrar la salud en el Proyecto Educativo de Centro',
+      'Designar persona coordinadora responsable del programa',
+      'Elaborar plan de actuación integrado en el PEC',
+      'Reflejar necesidades y objetivos en la solicitud'
+    ],
+    ef: '⭐ La Red EPSA es referencia obligada en cualquier PD de EF. Marco institucional que legitima los contenidos de salud, higiene, condición física y vida activa.'
+  },
+  ecoescuelas: {
+    icon: '🌱', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Red Andaluza de Ecoescuelas',
+    desc: 'Iniciativa de la Junta de Andalucía para centros comprometidos con la educación ambiental, la sostenibilidad y la mejora del entorno escolar.',
+    objetivos: [
+      'Comprometer al centro con la educación ambiental y sostenibilidad',
+      'Mejora del entorno escolar desde la conciencia ecológica',
+      'Designar coordinador/a del programa en el centro',
+      'Solicitud en Séneca con problemas ambientales y objetivos'
+    ],
+    ef: 'Conecta con ALDEA y con la UD 11 (Calistenia – Parque del Oeste) y UD 4 (Naturaleza – Playa de la Misericordia). Espacio exterior y naturaleza.'
+  },
+  aulasverdes: {
+    icon: '🌳', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Proyecto Aulas Verdes Abiertas',
+    desc: 'Rediseño y renaturalización de espacios exteriores del centro, convirtiéndolos en entornos de aprendizaje sostenibles y saludables al aire libre.',
+    objetivos: [
+      'Rediseñar espacios exteriores como entornos de aprendizaje',
+      'Renaturalizar los exteriores del centro educativo',
+      'Crear entornos sostenibles para el aprendizaje al aire libre'
+    ],
+    ef: '⭐ Directamente vinculado a EF. Los patios y espacios exteriores son el principal espacio de EF. Conexión con UD 5 (Vida Activa en Recreos) y UD 11 (Parque).'
+  },
+  investiga: {
+    icon: '🔭', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Investiga y Descubre',
+    desc: 'Proyectos en horario no lectivo para alumnado que destaca por su interés y motivación. Ampliación del currículo ordinario mediante mentorías.',
+    objetivos: [
+      'Estimular aprendizaje e iniciativa de alumnado con alta motivación',
+      'Ampliación respecto al currículo ordinario',
+      'Profesorado del centro y mentores externos como guías'
+    ],
+    ef: 'En EF: proyectos de investigación sobre deporte, salud o actividad física para alumnado con altas capacidades o alta motivación motriz.'
+  },
+  pinpivmat: {
+    icon: '🧪', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'PINPIVMAT',
+    desc: 'Proyectos de innovación, investigación y mejora de la práctica docente. Para profesorado en servicio activo en centros públicos andaluces.',
+    objetivos: [
+      'Mejorar la práctica docente y el funcionamiento del centro',
+      'Desarrollar procesos de enseñanza-aprendizaje innovadores',
+      'Solicitud firmada en Séneca con memoria y presupuesto'
+    ],
+    ef: 'Interesante para maestros/as de EF que quieran investigar en metodologías activas, evaluación formativa, EF inclusiva, etc. Publicable y citeable en la PD.'
+  },
+  aps: {
+    icon: '🤝', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Proyectos de Aprendizaje-Servicio (ApS)',
+    desc: 'Convocatoria actual para el curso 2026/27. Valores de solidaridad y empatía mediante aprendizajes con utilidad real en el entorno más cercano.',
+    objetivos: [
+      'Establecer procedimiento para ApS en centros docentes',
+      'Desarrollar valores de solidaridad y empatía de forma transversal',
+      'Poner en valor los aprendizajes académicos con utilidad social real',
+      'La convocatoria publicada ahora autoriza proyectos para 2026/27'
+    ],
+    ef: '⭐ CLAVE para la PD. La actividad «La memoria del juego» (intergeneracional con la Residencia de mayores) es un ApS de EF. UD 7 y eje transversal del hilo conductor.'
+  },
+  comunidades: {
+    icon: '🏫', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Comunidades de Aprendizaje',
+    desc: 'Transformación del centro y su entorno mediante la participación de toda la comunidad educativa e implementación de Actuaciones Educativas de Éxito (AEE).',
+    objetivos: [
+      'Mejorar resultados académicos y la convivencia del centro',
+      'Transformar el centro mediante la participación comunitaria',
+      'Desarrollar un currículo centrado en el desempeño competencial',
+      'Implementar AEE basadas en investigación científica'
+    ],
+    ef: 'En EF: grupos interactivos en EF, aprendizaje dialógico, participación de familias y voluntarios en actividades motrices. Conexión con el hilo conductor.'
+  },
+  refuerzoestival: {
+    icon: '☀️', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Programa de Refuerzo Educativo Estival',
+    desc: 'Refuerzo en periodo estival en materias instrumentales y hábitos de vida saludable mediante actividades lúdico-deportivas. Prevención del fracaso escolar.',
+    objetivos: [
+      'Refuerzo en áreas instrumentales y organización del trabajo',
+      'Mejora de hábitos y técnicas de estudio',
+      'Fomento de hábitos de vida saludable mediante actividades lúdico-deportivas',
+      'Contribuir al éxito educativo y prevenir el abandono temprano'
+    ],
+    ef: '⭐ El componente lúdico-deportivo es EF en verano. Actividades físicas saludables, juegos cooperativos, deportes alternativos.'
+  },
+  proa: {
+    icon: '🎯', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'PROA Andalucía',
+    desc: 'Actuaciones dirigidas a mejorar competencias clave y motivación del alumnado con NEAE de carácter compensatorio, incluyendo alumnado extranjero.',
+    objetivos: [
+      'Mejorar competencias clave del alumnado con NEAE compensatoria',
+      'Evitar el riesgo de abandono temprano del Sistema Educativo',
+      'Nivel adecuado de español como lengua vehicular (alumnado extranjero)'
+    ],
+    ef: 'En EF: el deporte y la actividad física como factor de integración de alumnado con dificultades socioeconómicas o de origen extranjero.'
+  },
+  prex: {
+    icon: '🇬🇧', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'PREX · Refuerzo de la Lengua Extranjera',
+    desc: 'Apoyo en lengua extranjera para centros no bilingües. Clases de refuerzo para mejorar comprensión y expresión desde edades tempranas.',
+    objetivos: [
+      'Mejorar comprensión oral y escrita del idioma extranjero',
+      'Fomentar la expresión e interacción en lengua extranjera',
+      'Contribuir al conocimiento de culturas extranjeras',
+      'Favorecer la conciliación familiar de familias vulnerables'
+    ],
+    ef: 'Posible conexión con la enseñanza de EF en inglés en centros bilingües. Vocabulario específico de EF en lengua extranjera.'
+  },
+  violencia: {
+    icon: '🚫', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Pacto de Estado contra la Violencia de Género',
+    desc: 'Proyectos de actuaciones y medidas preventivas en materia de violencia de género. Una solicitud por centro con proyecto adjunto en Séneca.',
+    objetivos: [
+      'Desarrollar medidas preventivas en materia de violencia de género',
+      'Presentar proyecto con actuaciones concretas en la solicitud',
+      'No se admiten solicitudes fuera de plazo'
+    ],
+    ef: 'En EF: deporte y actividad física sin violencia, prevención del acoso en el deporte, análisis crítico de la violencia en el espectáculo deportivo.'
+  },
+  mediadores: {
+    icon: '💊', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Talleres de Sensibilización de Mediadores en Salud',
+    desc: 'Talleres formativos en colaboración con profesionales sociosanitarios. El centro debe participar en HVS línea Mediadores en Salud (registro en Séneca antes del 30/06/2026).',
+    objetivos: [
+      'Formación de mediadores/as en salud entre el alumnado',
+      'Colaboración con profesionales sociosanitarios',
+      'Requiere participar previamente en HVS – Mediadores en Salud'
+    ],
+    ef: 'Complementa al Programa HVS. En EF: el alumnado formado como mediador puede liderar actividades de promoción de la salud en el recreo o en la clase.'
+  },
+  picassomob: {
+    icon: '🇫🇷', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'PicassoMob',
+    desc: 'Programa de movilidad franco-española para la enseñanza del francés. Fomenta la competencia plurilingüe y la cooperación internacional.',
+    objetivos: [
+      'Promover el aprendizaje del francés a través de movilidad',
+      'Perfeccionar el francés y sensibilizar sobre la importancia de los idiomas',
+      'Fomentar competencia plurilingüe y pluricultural',
+      'Desarrollar actitudes de convivencia y cooperación internacional'
+    ],
+    ef: 'Escasa vinculación directa. Posible conexión con intercambios deportivos franco-españoles y actividades físicas interculturales.'
+  },
+  confucio: {
+    icon: '🐉', tipo: 'c', tipoLabel: 'C · Convocatoria Específica',
+    title: 'Aulas Confucio',
+    desc: 'Clases de chino mandarín, celebraciones culturales, talleres de caligrafía, juegos tradicionales chinos y posibilidad de becas para campamentos en China.',
+    objetivos: [
+      'Clases de chino mandarín adaptadas a diferentes niveles y etapas',
+      'Talleres de caligrafía, pintura, corte de papel, juegos chinos (Go, Mahjong)',
+      'Celebraciones culturales: Año Nuevo Chino, Festival del Medio Otoño',
+      'Intercambios y becas para campamentos en China'
+    ],
+    ef: 'Interesante conexión con juegos tradicionales de otras culturas (Go, ajedrez chino, juegos populares) dentro del bloque de Juegos y Deportes.'
+  }
+};
+
+function openModal(id) {
+  const p = programas[id];
+  if (!p) return;
+
+  document.getElementById('modalIcon').textContent = p.icon;
+  const tipoEl = document.getElementById('modalTipo');
+  tipoEl.className = `modal-tipo ${p.tipo}`;
+  tipoEl.textContent = `TIPO ${p.tipoLabel}`;
+  document.getElementById('modalTitle').textContent = p.title;
+
+  const bodyEl = document.getElementById('modalBody');
+  const arrowColor = p.tipo === 'a' ? '#1E40AF' : p.tipo === 'b' ? '#0D9488' : '#7C3AED';
+
+  bodyEl.innerHTML = `
+    <div class="modal-section">
+      <h4>En qué consiste</h4>
+      <p>${p.desc}</p>
+    </div>
+    <div class="modal-section">
+      <h4>Objetivos principales</h4>
+      <ul style="--arrow-color: ${arrowColor}">
+        ${p.objetivos.map(o => `<li style="--arrow-color:${arrowColor}"><span style="color:${arrowColor};font-weight:900;flex-shrink:0">→</span>${o}</li>`).join('')}
+      </ul>
+    </div>
+    <div class="modal-section">
+      <h4>Relevancia para Educación Física</h4>
+      <p>${p.ef}</p>
+      ${p.ef.startsWith('⭐') ? `<div class="ef-badge">⭐ Prioritario para EF</div>` : ''}
+    </div>
+  `;
+
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function filter(type, btn) {
+  // Update buttons
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Show/hide groups
+  const groups = ['tipo-a', 'tipo-b', 'tipo-c'];
+  if (type === 'all') {
+    groups.forEach(g => document.getElementById(`group-${g}`).classList.remove('hidden'));
+  } else {
+    groups.forEach(g => {
+      const el = document.getElementById(`group-${g}`);
+      g === type ? el.classList.remove('hidden') : el.classList.add('hidden');
+    });
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
