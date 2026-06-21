@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller Plantilla UD — Tierra de Maestros</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D0E14;--bg2:#13151F;--bg3:#1A1D2E;
+  --orange:#E8720C;--orange2:#FF8C2A;
+  --blue:#1B5F8C;--blue2:#3B8FCC;--blueL:#B5D4F4;
+  --teal:#0F6E56;--teal2:#1DB385;--tealL:#9FE1CB;
+  --plum:#7B2D5E;--plum2:#C04A99;--plumL:#F4C0D1;
+  --text:#F0EDE8;--textD:#A8A4A0;--textDD:#555;
+  --bdr:rgba(255,255,255,0.08);--bdr2:rgba(255,255,255,0.14);
+}
+body{font-family:'Nunito Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100;}
+.topbar-brand{display:flex;align-items:center;gap:10px;}
+.dot10{width:10px;height:10px;border-radius:50%;background:var(--orange);}
+.tb-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;}
+.tb-sub{font-size:11px;color:var(--textD);margin-top:1px;}
+.mode-tabs{display:flex;gap:6px;}
+.mtab{font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;padding:7px 16px;border-radius:8px;border:1px solid var(--bdr2);background:transparent;color:var(--textD);cursor:pointer;transition:all .2s;}
+.mtab.active{background:rgba(232,114,12,.15);border-color:rgba(232,114,12,.4);color:var(--orange2);}
+.mtab:hover:not(.active){background:rgba(255,255,255,.05);}
+.view{display:none;padding:24px 28px 40px;}
+.view.active{display:block;}
+.sec-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:22px;margin-bottom:4px;}
+.sec-sub{font-size:13px;color:var(--textD);margin-bottom:24px;line-height:1.5;}
+/* BANCO */
+.btabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;}
+.btab{font-family:'Nunito',sans-serif;font-weight:800;font-size:11.5px;padding:6px 14px;border-radius:20px;border:1px solid var(--bdr2);background:transparent;color:var(--textD);cursor:pointer;transition:all .18s;}
+.btab.active{color:var(--bg);}
+.bt-o.active{background:var(--orange);}
+.bt-b.active{background:var(--blue2);}
+.bt-t.active{background:var(--teal2);}
+.bt-p.active{background:var(--plum2);}
+.bt-g.active{background:#888;}
+.btab:hover:not(.active){background:rgba(255,255,255,.05);color:var(--text);}
+.bpanel{display:none;}
+.bpanel.active{display:block;}
+.bhead{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.bicon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.ic-o{background:rgba(232,114,12,.15);color:var(--orange2);}
+.ic-b{background:rgba(27,95,140,.2);color:var(--blueL);}
+.ic-t{background:rgba(15,110,86,.2);color:var(--tealL);}
+.ic-p{background:rgba(123,45,94,.2);color:var(--plumL);}
+.ic-g{background:rgba(255,255,255,.07);color:#aaa;}
+.bhtitle{font-family:'Nunito',sans-serif;font-weight:900;font-size:17px;}
+.bhsub{font-size:12px;color:var(--textD);margin-top:2px;}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.igrid-w{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
+.icard{border-radius:12px;padding:12px 14px;border:1px solid var(--bdr);background:var(--bg2);}
+.icard:hover{border-color:var(--bdr2);}
+.icode{font-family:'Nunito',sans-serif;font-weight:800;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.iname{font-family:'Nunito',sans-serif;font-weight:800;font-size:13.5px;margin-bottom:4px;}
+.idesc{font-size:11.5px;color:var(--textD);line-height:1.45;}
+.cc-o{color:var(--orange2);}
+.cc-b{color:var(--blueL);}
+.cc-t{color:var(--tealL);}
+.cc-p{color:var(--plumL);}
+.cc-g{color:#888;}
+/* UD selector */
+.udgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:28px;}
+.udcard{border-radius:14px;padding:18px 20px;border:1px solid var(--bdr);background:var(--bg2);cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.udcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.ud-o::before{background:var(--orange);}
+.ud-b::before{background:var(--blue2);}
+.ud-t::before{background:var(--teal2);}
+.ud-p::before{background:var(--plum2);}
+.udcard:hover{border-color:var(--bdr2);transform:translateY(-2px);}
+.udcard.sel{border-color:var(--orange);background:rgba(232,114,12,.06);}
+.udtrim{font-family:'Nunito',sans-serif;font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.udname{font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;margin-bottom:4px;}
+.udsda{font-size:12px;color:var(--textD);font-style:italic;margin-bottom:10px;}
+.udtags{display:flex;flex-wrap:wrap;gap:5px;}
+.udtag{font-size:10.5px;padding:2px 8px;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:700;background:rgba(255,255,255,.05);color:var(--textD);border:1px solid var(--bdr);}
+/* workspace */
+.ws{display:none;}
+.ws.active{display:block;}
+.wshead{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px 20px;background:var(--bg2);border-radius:14px;border:1px solid var(--bdr);}
+.wsbadge{font-family:'Nunito',sans-serif;font-weight:900;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:6px;background:rgba(232,114,12,.15);color:var(--orange2);border:1px solid rgba(232,114,12,.3);}
+.wstitle{font-family:'Nunito',sans-serif;font-weight:900;font-size:18px;}
+.wssda{font-size:12.5px;color:var(--textD);font-style:italic;}
+.backbtn{margin-left:auto;font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;padding:7px 14px;border-radius:8px;border:1px solid var(--bdr2);background:transparent;color:var(--textD);cursor:pointer;display:flex;align-items:center;gap:6px;}
+.backbtn:hover{background:rgba(255,255,255,.05);color:var(--text);}
+/* form sections */
+.pfgrid{display:flex;flex-direction:column;gap:12px;}
+.pfs{background:var(--bg2);border-radius:14px;border:1px solid var(--bdr);overflow:hidden;}
+.pfsh{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--bdr);background:rgba(255,255,255,.02);cursor:pointer;user-select:none;}
+.pfsh i{font-size:16px;}
+.pfslabel{font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+.pfstitle{font-family:'Nunito',sans-serif;font-weight:900;font-size:14px;}
+.pfchev{margin-left:auto;font-size:16px;color:var(--textD);transition:transform .2s;}
+.pfs.open .pfchev{transform:rotate(180deg);}
+.pfb{display:none;padding:16px;}
+.pfs.open .pfb{display:block;}
+.hint{font-size:12px;color:var(--textD);margin-bottom:12px;line-height:1.5;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:8px;border-left:3px solid var(--orange);}
+.sublabel{font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--textD);margin-top:12px;margin-bottom:6px;}
+.sublabel:first-child{margin-top:0;}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px;}
+.chip{font-family:'Nunito',sans-serif;font-weight:700;font-size:11.5px;padding:5px 12px;border-radius:20px;border:1px solid var(--bdr2);background:transparent;color:var(--textD);cursor:pointer;transition:all .15s;}
+.chip:hover{background:rgba(255,255,255,.06);color:var(--text);}
+.sel-o{background:rgba(232,114,12,.2);border-color:rgba(232,114,12,.5);color:var(--orange2);}
+.sel-b{background:rgba(27,95,140,.2);border-color:rgba(27,95,140,.5);color:var(--blueL);}
+.sel-t{background:rgba(15,110,86,.2);border-color:rgba(15,110,86,.5);color:var(--tealL);}
+.sel-p{background:rgba(123,45,94,.2);border-color:rgba(123,45,94,.5);color:var(--plumL);}
+.pftx{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bdr2);border-radius:10px;padding:10px 14px;color:var(--text);font-family:'Nunito Sans',sans-serif;font-size:13px;line-height:1.5;resize:vertical;min-height:72px;margin-top:6px;}
+.pftx::placeholder{color:var(--textDD);}
+.pftx:focus{outline:none;border-color:rgba(232,114,12,.4);}
+/* sessions table */
+.stbl{width:100%;border-collapse:collapse;font-size:12.5px;}
+.stbl th{padding:8px 10px;text-align:left;font-family:'Nunito',sans-serif;font-weight:800;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--textD);border-bottom:1px solid var(--bdr);}
+.stbl td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;}
+.stbl tr:last-child td{border-bottom:none;}
+.snum{font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;color:var(--orange2);width:28px;}
+.sinput{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bdr);border-radius:6px;padding:6px 8px;color:var(--text);font-size:12px;font-family:'Nunito Sans',sans-serif;}
+.sinput:focus{outline:none;border-color:rgba(232,114,12,.35);}
+/* fases SdA chips */
+.fase-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:6px;}
+.fase-pill{border-radius:10px;padding:10px 6px;text-align:center;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;border:1px solid var(--bdr);background:var(--bg3);cursor:pointer;transition:all .15s;line-height:1.3;}
+.fase-pill i{font-size:18px;display:block;margin-bottom:4px;}
+.fase-pill:hover{border-color:var(--bdr2);}
+.fp-o{} .fp-o.fsel{background:rgba(232,114,12,.2);border-color:rgba(232,114,12,.5);color:var(--orange2);}
+.fp-b{} .fp-b.fsel{background:rgba(27,95,140,.2);border-color:rgba(27,95,140,.5);color:var(--blueL);}
+.fp-t{} .fp-t.fsel{background:rgba(15,110,86,.2);border-color:rgba(15,110,86,.5);color:var(--tealL);}
+.fp-p{} .fp-p.fsel{background:rgba(123,45,94,.2);border-color:rgba(123,45,94,.5);color:var(--plumL);}
+.fp-g{} .fp-g.fsel{background:rgba(99,153,34,.2);border-color:rgba(99,153,34,.5);color:#97C459;}
+.fp-a{} .fp-a.fsel{background:rgba(186,117,23,.2);border-color:rgba(186,117,23,.5);color:#FAC775;}
+/* pp chips */
+.pp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:6px;}
+.pp-pill{border-radius:10px;padding:10px 12px;border:1px solid var(--bdr);background:var(--bg3);cursor:pointer;transition:all .15s;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;text-align:center;}
+.pp-pill:hover{border-color:var(--bdr2);}
+.pp-pill.ppsel{background:rgba(15,110,86,.2);border-color:rgba(15,110,86,.5);color:var(--tealL);}
+/* result */
+.rbox{margin-top:20px;background:var(--bg3);border-radius:14px;padding:20px;border:1px solid var(--bdr);}
+.rtitle{font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;color:var(--tealL);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ri{background:var(--bg2);border-radius:10px;padding:10px 14px;border:1px solid var(--bdr);}
+.ri-label{font-family:'Nunito',sans-serif;font-weight:800;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--textD);margin-bottom:5px;}
+.ri-val{font-size:12.5px;line-height:1.5;}
+.ri.sp2{grid-column:1/-1;}
+.cdsp{display:flex;flex-wrap:wrap;gap:5px;}
+.cd{font-size:11px;padding:3px 9px;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:700;}
+.cd-o{background:rgba(232,114,12,.15);color:var(--orange2);}
+.cd-b{background:rgba(27,95,140,.2);color:var(--blueL);}
+.cd-t{background:rgba(15,110,86,.2);color:var(--tealL);}
+.cd-p{background:rgba(123,45,94,.2);color:var(--plumL);}
+.cd-g{background:rgba(255,255,255,.08);color:#bbb;}
+.verbtn{font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;padding:11px 24px;border-radius:10px;background:rgba(232,114,12,.2);border:1px solid rgba(232,114,12,.4);color:var(--orange2);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;margin-top:16px;}
+.verbtn:hover{background:rgba(232,114,12,.3);}
+.rstbtn{font-family:'Nunito',sans-serif;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;background:transparent;border:1px solid var(--bdr2);color:var(--textD);cursor:pointer;margin-top:8px;margin-left:8px;}
+.rstbtn:hover{background:rgba(255,255,255,.04);color:var(--text);}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="dot10"></div>
+    <div><div class="tb-title">Taller · Plantilla de UD</div><div class="tb-sub">Tierra de Maestros · EF Primaria Andalucía</div></div>
+  </div>
+  <div class="mode-tabs">
+    <button class="mtab active" onclick="setMode('banco',this)"><i class="ti ti-database"></i> Banco de opciones</button>
+    <button class="mtab" onclick="setMode('practica',this)"><i class="ti ti-pencil"></i> Práctica UD</button>
+  </div>
+</div>
+
+<!-- ===== BANCO ===== -->
+<div class="view active" id="view-banco">
+  <div class="sec-title">Banco de opciones</div>
+  <div class="sec-sub">Todas las opciones disponibles para cada apartado de la plantilla. Úsalo como referencia mientras rellenas tu UD.</div>
+  <div class="btabs">
+    <button class="btab bt-o active" onclick="setBanco('fe',this)">Funciones ejecutivas</button>
+    <button class="btab bt-b" onclick="setBanco('ods',this)">ODS</button>
+    <button class="btab bt-b" onclick="setBanco('cc',this)">Competencias clave</button>
+    <button class="btab bt-t" onclick="setBanco('ce',this)">CE de EF</button>
+    <button class="btab bt-t" onclick="setBanco('sab',this)">Saberes básicos</button>
+    <button class="btab bt-p" onclick="setBanco('mod',this)">Modelos pedagógicos</button>
+    <button class="btab bt-p" onclick="setBanco('pp',this)">Principios pedagógicos</button>
+    <button class="btab bt-p" onclick="setBanco('eval',this)">Evaluación</button>
+    <button class="btab bt-g" onclick="setBanco('dua',this)">DUA</button>
+  </div>
+
+  <!-- FE -->
+  <div class="bpanel active" id="bp-fe">
+    <div class="bhead"><div class="bicon ic-o"><i class="ti ti-brain"></i></div><div><div class="bhtitle">Funciones ejecutivas</div><div class="bhsub">Elige 2-3 por UD. Solo las que realmente se trabajen en las tareas.</div></div></div>
+    <div class="igrid">
+      <div class="icard"><div class="icode cc-o">FE-01</div><div class="iname">Inhibición</div><div class="idesc">Frenar respuestas automáticas o impulsos. Clave en juegos de reglas y deportes alternativos.</div></div>
+      <div class="icard"><div class="icode cc-o">FE-02</div><div class="iname">Memoria de trabajo</div><div class="idesc">Retener y manipular información a corto plazo. Esencial en circuitos, coreografías y secuencias motrices.</div></div>
+      <div class="icard"><div class="icode cc-o">FE-03</div><div class="iname">Flexibilidad cognitiva</div><div class="idesc">Adaptarse a cambios de reglas o situaciones. Presente en juegos modificados y deportes de equipo.</div></div>
+      <div class="icard"><div class="icode cc-o">FE-04</div><div class="iname">Planificación</div><div class="idesc">Organizar acciones para alcanzar una meta. Importante en retos cooperativos y diseño de tareas propias.</div></div>
+      <div class="icard"><div class="icode cc-o">FE-05</div><div class="iname">Atención sostenida</div><div class="idesc">Mantener el foco durante la tarea. Trabajada en actividades de larga duración o con consignas complejas.</div></div>
+      <div class="icard"><div class="icode cc-o">FE-06</div><div class="iname">Control emocional</div><div class="idesc">Regulación de respuestas emocionales ante la frustración, el éxito o el conflicto en el juego.</div></div>
+      <div class="icard"><div class="icode cc-o">FE-07</div><div class="iname">Toma de decisiones</div><div class="idesc">Elegir entre opciones bajo presión. Fundamental en situaciones de juego y resolución de retos motrices.</div></div>
+      <div class="icard"><div class="icode cc-o">FE-08</div><div class="iname">Metacognición</div><div class="idesc">Reflexionar sobre el propio aprendizaje. Se trabaja en fases de vuelta a la calma y autoevaluación.</div></div>
+    </div>
+  </div>
+
+  <!-- ODS -->
+  <div class="bpanel" id="bp-ods">
+    <div class="bhead"><div class="bicon ic-b"><i class="ti ti-world"></i></div><div><div class="bhtitle">ODS — Agenda 2030</div><div class="bhsub">Elige 2-3 que conecten de forma real con el contenido y la tarea principal.</div></div></div>
+    <div class="igrid">
+      <div class="icard"><div class="icode cc-b">ODS 3</div><div class="iname">Salud y bienestar</div><div class="idesc">El más frecuente en EF. Garantizar una vida sana y promover el bienestar.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 4</div><div class="iname">Educación de calidad</div><div class="idesc">Garantizar una educación inclusiva, equitativa y de calidad. Vinculado a aprendizaje competencial.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 5</div><div class="iname">Igualdad de género</div><div class="idesc">Presente en UDs de coeducación y juego igualitario.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 9</div><div class="iname">Industria, innovación e infraestructura</div><div class="idesc">Vinculado al uso de TIC y herramientas digitales en EF.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 10</div><div class="iname">Reducción de desigualdades</div><div class="idesc">Clave en UDs de inclusión y atención a la diversidad.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 11</div><div class="iname">Ciudades y comunidades sostenibles</div><div class="idesc">Vinculado a UDs en entornos urbanos y del barrio.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 12</div><div class="iname">Consumo responsable</div><div class="idesc">Presente en UDs de autoconstrucción y material alternativo.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 13</div><div class="iname">Acción por el clima</div><div class="idesc">Para UDs en entorno natural y educación ambiental.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 16</div><div class="iname">Paz, justicia e instituciones</div><div class="idesc">Valores, juego limpio, resolución de conflictos.</div></div>
+      <div class="icard"><div class="icode cc-b">ODS 17</div><div class="iname">Alianzas para los objetivos</div><div class="idesc">Para UDs con participación de familias, entidades y comunidad.</div></div>
+    </div>
+  </div>
+
+  <!-- CC -->
+  <div class="bpanel" id="bp-cc">
+    <div class="bhead"><div class="bicon ic-b"><i class="ti ti-award"></i></div><div><div class="bhtitle">Competencias clave — Perfil de salida (RD 157/2022 / D. 101/2023)</div><div class="bhsub">Las 8 CC del Perfil de salida. Indica a cuáles contribuye esta UD.</div></div></div>
+    <div class="igrid">
+      <div class="icard"><div class="icode cc-b">CCL</div><div class="iname">Comunicación lingüística</div><div class="idesc">Expresión oral y escrita. Instrucciones, debates de reflexión, fichas de trabajo.</div></div>
+      <div class="icard"><div class="icode cc-b">CP</div><div class="iname">Plurilingüe</div><div class="idesc">Uso de distintas lenguas para el aprendizaje y la comunicación. En EF, vocabulario específico y consignas multilingüe.</div></div>
+      <div class="icard"><div class="icode cc-b">STEM</div><div class="iname">Matemática, ciencia y tecnología</div><div class="idesc">Medición, estadística, cálculo de puntuaciones, análisis del rendimiento.</div></div>
+      <div class="icard"><div class="icode cc-b">CD</div><div class="iname">Digital</div><div class="idesc">Uso de herramientas digitales, portfolio, vídeo, aplicaciones de registro.</div></div>
+      <div class="icard"><div class="icode cc-b">CPSAA</div><div class="iname">Personal, social y aprender a aprender</div><div class="idesc">Autonomía, metacognición, autorregulación. La más frecuente en EF.</div></div>
+      <div class="icard"><div class="icode cc-b">CC</div><div class="iname">Ciudadanía</div><div class="idesc">Valores democráticos, juego limpio, participación, derechos y responsabilidades.</div></div>
+      <div class="icard"><div class="icode cc-b">CE</div><div class="iname">Emprendedora</div><div class="idesc">Creatividad, iniciativa, diseño de propuestas propias, autoconstrucción.</div></div>
+      <div class="icard"><div class="icode cc-b">CCEC</div><div class="iname">Conciencia y expresión cultural</div><div class="idesc">Danza, expresión corporal, juegos tradicionales, patrimonio cultural.</div></div>
+    </div>
+  </div>
+
+  <!-- CE -->
+  <div class="bpanel" id="bp-ce">
+    <div class="bhead"><div class="bicon ic-t"><i class="ti ti-run"></i></div><div><div class="bhtitle">Competencias específicas EF — Anexo II, Orden 30/05/2023</div><div class="bhsub">Las 5 CE del área. Son las que se evalúan directamente a través de los criterios.</div></div></div>
+    <div class="igrid-w">
+      <div class="icard"><div class="icode cc-t">CE 1</div><div class="iname">Vida activa y saludable</div><div class="idesc">Adoptar un estilo de vida activo y saludable, practicando actividades físicas, lúdicas y deportivas que potencien la salud física, mental y social.</div></div>
+      <div class="icard"><div class="icode cc-t">CE 2</div><div class="iname">Resolución de situaciones motrices</div><div class="idesc">Resolver eficazmente situaciones motrices usando las habilidades motrices básicas y específicas en contextos de cooperación, oposición o colaboración-oposición.</div></div>
+      <div class="icard"><div class="icode cc-t">CE 3</div><div class="iname">Práctica cooperativa, inclusiva y respetuosa</div><div class="idesc">Desarrollar una práctica motriz cooperativa y respetuosa que favorezca la inclusión y la gestión emocional en contextos de actividad física.</div></div>
+      <div class="icard"><div class="icode cc-t">CE 4</div><div class="iname">Manifestaciones lúdicas y culturales</div><div class="idesc">Conocer y practicar diferentes manifestaciones lúdicas y culturales del entorno propio, valorando el patrimonio cultural motor andaluz.</div></div>
+      <div class="icard"><div class="icode cc-t">CE 5</div><div class="iname">Entorno natural y urbano sostenible</div><div class="idesc">Valorar diferentes medios naturales y urbanos como contextos de práctica motriz, interactuando con ellos desde un enfoque sostenible y responsable.</div></div>
+    </div>
+  </div>
+
+  <!-- SABERES -->
+  <div class="bpanel" id="bp-sab">
+    <div class="bhead"><div class="bicon ic-t"><i class="ti ti-books"></i></div><div><div class="bhtitle">Saberes básicos — Anexo II, Orden 30/05/2023</div><div class="bhsub">6 bloques de contenido del área de EF en Primaria. Selecciona los que se movilizan en la UD.</div></div></div>
+    <div class="igrid-w">
+      <div class="icard"><div class="icode cc-t">Bloque A</div><div class="iname">Vida activa y saludable</div><div class="idesc">Salud física, social y mental. Actividad física, alimentación, higiene, educación postural, autoconcepto, estereotipos corporales.</div></div>
+      <div class="icard"><div class="icode cc-t">Bloque B</div><div class="iname">Organización y gestión de la actividad física</div><div class="idesc">Planificación, organización, seguridad y autonomía en la práctica. Protocolos de actuación ante accidentes. Protocolo PAS.</div></div>
+      <div class="icard"><div class="icode cc-t">Bloque C</div><div class="iname">Resolución de problemas en situaciones motrices</div><div class="idesc">Habilidades motrices básicas y específicas, coordinación, equilibrio, percepción espacio-temporal, lógica interna de los juegos.</div></div>
+      <div class="icard"><div class="icode cc-t">Bloque D</div><div class="iname">Autorregulación emocional e interacción social</div><div class="idesc">Emociones, convivencia, respeto, cooperación, resolución de conflictos, responsabilidad personal y social en el juego.</div></div>
+      <div class="icard"><div class="icode cc-t">Bloque E</div><div class="iname">Manifestaciones de la cultura motriz</div><div class="idesc">Juegos populares y tradicionales andaluces, deportes, danza, expresión corporal, flamenco, patrimonio cultural motor.</div></div>
+      <div class="icard"><div class="icode cc-t">Bloque F</div><div class="iname">Interacción con el entorno</div><div class="idesc">Práctica motriz en entornos naturales y urbanos terrestres o acuáticos. Respeto, conservación ambiental, seguridad en el entorno.</div></div>
+    </div>
+  </div>
+
+  <!-- MODELOS -->
+  <div class="bpanel" id="bp-mod">
+    <div class="bhead"><div class="bicon ic-p"><i class="ti ti-topology-star-3"></i></div><div><div class="bhtitle">Modelos pedagógicos activos</div><div class="bhsub">Ref: Fernández-Río, Hortigüela y Pérez-Pueyo (2020). Elige los que estructuren realmente la UD.</div></div></div>
+    <div class="igrid">
+      <div class="icard"><div class="icode cc-p">AC</div><div class="iname">Aprendizaje Cooperativo</div><div class="idesc">Interdependencia positiva, responsabilidad individual, interacción estimuladora y procesamiento grupal.</div></div>
+      <div class="icard"><div class="icode cc-p">ABR</div><div class="iname">Aprendizaje Basado en Retos</div><div class="idesc">La UD se articula en torno a un reto auténtico. El alumnado resuelve una situación real con producto visible.</div></div>
+      <div class="icard"><div class="icode cc-p">MRPS / TPSR</div><div class="iname">Responsabilidad Personal y Social</div><div class="idesc">Hellison. Cinco niveles de responsabilidad (respeto, esfuerzo, autonomía, liderazgo, transferencia). Valores como contenido explícito.</div></div>
+      <div class="icard"><div class="icode cc-p">MCID / TGfU</div><div class="iname">Modelo Comprensivo de Iniciación Deportiva</div><div class="idesc">Comprensión táctica antes que técnica. Juego modificado como eje. Deportes de invasión, red/muro y campo/bate.</div></div>
+      <div class="icard"><div class="icode cc-p">MED</div><div class="iname">Modelo de Educación Deportiva</div><div class="idesc">Siedentop. Temporadas, roles (jugador, árbitro, entrenador, estadístico), afiliación y competición festiva e inclusiva.</div></div>
+      <div class="icard"><div class="icode cc-p">EA</div><div class="iname">Estilo Actitudinal</div><div class="idesc">Pérez-Pueyo. La actitud es el eje vertebrador. Autoevaluación y coevaluación integradas desde el diseño.</div></div>
+      <div class="icard"><div class="icode cc-p">EFRS</div><div class="iname">EF y para la Salud</div><div class="idesc">Transversal en todas las UD vinculadas a la CE1. Salud física, mental y social como objetivo central del área.</div></div>
+      <div class="icard"><div class="icode cc-p">ACM</div><div class="iname">Autoconstrucción de Materiales</div><div class="idesc">El alumnado diseña y construye sus propios materiales con material reciclado. Conecta con ODS 12 y sostenibilidad.</div></div>
+      <div class="icard"><div class="icode cc-p">ApS</div><div class="iname">Aprendizaje-Servicio</div><div class="idesc">Aprendizaje vinculado a un servicio real a la comunidad. Alta conexión con el entorno y el hilo conductor.</div></div>
+    </div>
+  </div>
+
+  <!-- PRINCIPIOS PEDAGÓGICOS -->
+  <div class="bpanel" id="bp-pp">
+    <div class="bhead"><div class="bicon ic-p"><i class="ti ti-sparkles"></i></div><div><div class="bhtitle">Principios pedagógicos</div><div class="bhsub">Ejes transversales que deben estar presentes en la UD. Ref: D. 101/2023, art. 6.</div></div></div>
+    <div class="igrid">
+      <div class="icard"><div class="icode cc-p">PAL</div><div class="iname">Plan de Actuación para la Lectura</div><div class="idesc">Comprensión lectora en la UD. Fichas, enunciados de retos, carteles, instrucciones escritas, diarios de sesión.</div></div>
+      <div class="icard"><div class="icode cc-p">TDE — TIC</div><div class="iname">Transformación Digital Educativa</div><div class="idesc">QR, vídeo de referencia, Plickers, formularios, portfolio digital. Triada TIC-TAC-TEP.</div></div>
+      <div class="icard"><div class="icode cc-p">Cultura andaluza</div><div class="iname">Identidad y patrimonio motriz</div><div class="idesc">Juegos populares andaluces, flamenco, patrimonio cultural local, referentes deportivos andaluces de ambos géneros.</div></div>
+      <div class="icard"><div class="icode cc-p">Ed. emocional</div><div class="iname">Gestión emocional</div><div class="idesc">Empatía, cooperación, frustración ante el reto motor, autoconocimiento, regulación emocional en el juego.</div></div>
+      <div class="icard"><div class="icode cc-p">Razonamiento matemático</div><div class="iname">Pensamiento matemático en EF</div><div class="idesc">Cálculo de puntuaciones, distancias, tiempos, estadísticas sencillas integradas en las tareas motrices.</div></div>
+      <div class="icard"><div class="icode cc-p">Ed. sostenible</div><div class="iname">Educación para el desarrollo sostenible</div><div class="idesc">Uso responsable de materiales, cuidado del entorno natural y urbano, conexión explícita con los ODS trabajados.</div></div>
+      <div class="icard"><div class="icode cc-p">Ed. para la igualdad</div><div class="iname">Coeducación e igualdad de género</div><div class="idesc">Visibilización de modelos femeninos en el deporte, participación equitativa en todos los roles, lenguaje inclusivo.</div></div>
+    </div>
+  </div>
+
+  <!-- EVALUACIÓN -->
+  <div class="bpanel" id="bp-eval">
+    <div class="bhead"><div class="bicon ic-p"><i class="ti ti-chart-bar"></i></div><div><div class="bhtitle">Evaluación</div><div class="bhsub">Combina técnicas, instrumentos y evidencias. Evaluación triádica (Pérez-Pueyo et al., 2024).</div></div></div>
+    <div class="igrid">
+      <div class="icard"><div class="icode cc-p">TÉCNICA</div><div class="iname">Observación directa</div><div class="idesc">El docente observa y registra durante la práctica. Requiere criterios definidos previamente.</div></div>
+      <div class="icard"><div class="icode cc-p">TÉCNICA</div><div class="iname">Análisis de producciones</div><div class="idesc">Revisión de productos del alumnado: fichas, vídeos, portfolios, diseños propios.</div></div>
+      <div class="icard"><div class="icode cc-p">TÉCNICA</div><div class="iname">Autoevaluación</div><div class="idesc">El alumno valora su propio proceso. Fomenta metacognición y autorregulación.</div></div>
+      <div class="icard"><div class="icode cc-p">TÉCNICA</div><div class="iname">Coevaluación</div><div class="idesc">Evaluación entre iguales. Fomenta la responsabilidad y el aprendizaje entre pares.</div></div>
+      <div class="icard"><div class="icode cc-p">INSTRUMENTO</div><div class="iname">Rúbrica</div><div class="idesc">Describe niveles de desempeño para cada criterio. Permite retroalimentación detallada.</div></div>
+      <div class="icard"><div class="icode cc-p">INSTRUMENTO</div><div class="iname">Lista de cotejo</div><div class="idesc">Verificación de presencia/ausencia de indicadores observables. Rápida y operativa.</div></div>
+      <div class="icard"><div class="icode cc-p">INSTRUMENTO</div><div class="iname">Escala de valoración</div><div class="idesc">Gradación numérica o cualitativa de cada indicador.</div></div>
+      <div class="icard"><div class="icode cc-p">INSTRUMENTO</div><div class="iname">Diana de evaluación</div><div class="idesc">Visual y motivadora. El alumnado valora varios indicadores en un gráfico radial.</div></div>
+      <div class="icard"><div class="icode cc-p">EVIDENCIA</div><div class="iname">Portfolio digital</div><div class="idesc">Recoge producciones y reflexiones a lo largo de la UD. Trazabilidad del proceso.</div></div>
+      <div class="icard"><div class="icode cc-p">EVIDENCIA</div><div class="iname">Vídeo de actuación</div><div class="idesc">Grabación de la ejecución motriz o presentación. Permite análisis diferido.</div></div>
+    </div>
+  </div>
+
+  <!-- DUA -->
+  <div class="bpanel" id="bp-dua">
+    <div class="bhead"><div class="bicon ic-g"><i class="ti ti-accessible"></i></div><div><div class="bhtitle">DUA 3.0 — CAST (2024)</div><div class="bhsub">Tres principios. No es un parche: es diseño previo desde el inicio.</div></div></div>
+    <div class="igrid-w">
+      <div class="icard"><div class="icode cc-g">PRINCIPIO 1</div><div class="iname">Múltiples medios de representación</div><div class="idesc">Ofrece información en distintos formatos: visual, auditivo, kinestésico. Apoyos visuales, demostraciones, fichas adaptadas.</div></div>
+      <div class="icard"><div class="icode cc-g">PRINCIPIO 2</div><div class="iname">Múltiples medios de acción y expresión</div><div class="idesc">Distintas formas de demostrar el aprendizaje: vídeo, ficha, demostración práctica, explicación oral.</div></div>
+      <div class="icard"><div class="icode cc-g">PRINCIPIO 3</div><div class="iname">Múltiples medios de compromiso</div><div class="idesc">Motivación, autorregulación, relevancia personal. Retos graduados, elección de rol, autonomía progresiva. (Nota: término correcto es <em>compromiso</em>, no implicación.)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRÁCTICA ===== -->
+<div class="view" id="view-practica">
+  <div id="ud-selector">
+    <div class="sec-title">Práctica: elige una UD</div>
+    <div class="sec-sub">Selecciona una UD y rellena su plantilla eligiendo del banco de opciones. Al final verás tu resultado completo.</div>
+    <div class="udgrid">
+      <div class="udcard ud-o" onclick="selectUD(0)">
+        <div class="udtrim" style="color:var(--orange2);">Trimestre 1 · UD 1</div>
+        <div class="udname">Higiene postural</div>
+        <div class="udsda">SdA: "Salva tu espalda"</div>
+        <div class="udtags"><span class="udtag">Aula</span><span class="udtag">5.º Primaria</span><span class="udtag">CEIP El Torcal</span></div>
+      </div>
+      <div class="udcard ud-b" onclick="selectUD(1)">
+        <div class="udtrim" style="color:var(--blueL);">Trimestre 1 · UD 4</div>
+        <div class="udname">Actividades en la naturaleza</div>
+        <div class="udsda">SdA: "Exploradores de La Misericordia"</div>
+        <div class="udtags"><span class="udtag">Playa de la Misericordia</span><span class="udtag">5.º Primaria</span><span class="udtag">CEIP El Torcal</span></div>
+      </div>
+      <div class="udcard ud-t" onclick="selectUD(2)">
+        <div class="udtrim" style="color:var(--tealL);">Trimestre 2 · UD 7</div>
+        <div class="udname">Juegos tradicionales</div>
+        <div class="udsda">SdA: "La memoria del juego"</div>
+        <div class="udtags"><span class="udtag">Residencia de mayores</span><span class="udtag">5.º Primaria</span><span class="udtag">CEIP El Torcal</span></div>
+      </div>
+      <div class="udcard ud-p" onclick="selectUD(3)">
+        <div class="udtrim" style="color:var(--plumL);">Trimestre 3 · UD genérica</div>
+        <div class="udname">Expresión corporal y danza</div>
+        <div class="udsda">SdA: "Nuestro videoclip"</div>
+        <div class="udtags"><span class="udtag">Gimnasio</span><span class="udtag">5.º Primaria</span><span class="udtag">UD genérica</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws" id="workspace">
+    <div class="wshead">
+      <span class="wsbadge" id="ws-badge">UD</span>
+      <div><div class="wstitle" id="ws-title">—</div><div class="wssda" id="ws-sda">—</div></div>
+      <button class="backbtn" onclick="goBack()"><i class="ti ti-arrow-left"></i> Cambiar UD</button>
+    </div>
+
+    <div class="pfgrid">
+
+      <!-- CONTEXTO -->
+      <div class="pfs open">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-map-pin" style="color:var(--orange2)"></i><span class="pfslabel" style="color:var(--orange2)">Justificación</span><span class="pfstitle">Contexto de la UD</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="hint">Indica qué contexto o contextos se trabajan en esta UD.</div>
+          <div class="sublabel">Tipo de contexto</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="ctx">Primario — Alumnado</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="ctx">Secundario — Centro</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="ctx">Terciario — Entorno</span>
+          </div>
+          <div class="sublabel">Breve justificación</div>
+          <textarea class="pftx" id="f-ctx" placeholder="En 2-3 líneas, describe por qué es relevante esta UD para el alumnado, el centro o el entorno..."></textarea>
+        </div>
+      </div>
+
+      <!-- ODS Y FE -->
+      <div class="pfs open">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-world" style="color:var(--blue2)"></i><span class="pfslabel" style="color:var(--blueL)">Justificación</span><span class="pfstitle">ODS y funciones ejecutivas</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="hint">Elige 2-3 de cada. Solo los que realmente se trabajen en esta UD.</div>
+          <div class="sublabel">ODS (máx. 3)</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 3 · Salud y bienestar</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 4 · Educación de calidad</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 5 · Igualdad de género</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 9 · Innovación e infraestructura</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 10 · Reducción de desigualdades</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 11 · Ciudades sostenibles</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 12 · Consumo responsable</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 13 · Acción por el clima</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="ods">ODS 16 · Paz y justicia</span>
+          </div>
+          <div class="sublabel">Funciones ejecutivas (máx. 3)</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Inhibición</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Memoria de trabajo</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Flexibilidad cognitiva</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Planificación</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Atención sostenida</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Control emocional</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Toma de decisiones</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="fe">Metacognición</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ELEMENTOS CURRICULARES -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-book" style="color:var(--teal2)"></i><span class="pfslabel" style="color:var(--tealL)">Elementos curriculares</span><span class="pfstitle">CC, CE y saberes básicos</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="hint">Solo los que realmente se trabajen en esta UD. No los copies todos.</div>
+          <div class="sublabel">Competencias clave (8 disponibles)</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">CCL</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">CP — Plurilingüe</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">STEM</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">CD</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">CPSAA</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">CC</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">CE</span>
+            <span class="chip" onclick="tChip(this,'sel-b')" data-f="cc">CCEC</span>
+          </div>
+          <div class="sublabel">Competencias específicas EF (Orden 30/05/2023)</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="ce">CE 1 · Vida activa y saludable</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="ce">CE 2 · Resolución situaciones motrices</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="ce">CE 3 · Práctica cooperativa e inclusiva</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="ce">CE 4 · Manifestaciones lúdicas y culturales</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="ce">CE 5 · Entorno natural y urbano sostenible</span>
+          </div>
+          <div class="sublabel">Saberes básicos (Orden 30/05/2023)</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="sab">Bloque A · Vida activa y saludable</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="sab">Bloque B · Organización y gestión</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="sab">Bloque C · Resolución problemas motrices</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="sab">Bloque D · Autorregulación e interacción</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="sab">Bloque E · Cultura motriz</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="sab">Bloque F · Interacción con el entorno</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAREA PRINCIPAL -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-target" style="color:var(--orange2)"></i><span class="pfslabel" style="color:var(--orange2)">Tarea principal</span><span class="pfstitle">El reto auténtico de la SdA</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="hint">La situación-problema que da sentido a toda la UD. Real, motivadora y con producto visible.</div>
+          <textarea class="pftx" id="f-tarea" placeholder="Ej: El alumnado diseñará y presentará a las familias una guía de ejercicios posturales para hacer en casa..."></textarea>
+        </div>
+      </div>
+
+      <!-- SESIONES -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-calendar" style="color:var(--blue2)"></i><span class="pfslabel" style="color:var(--blueL)">Sesiones</span><span class="pfstitle">Transposición didáctica (6 sesiones)</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="hint">Concisión: nombra actividades o tareas concretas. 1-2 líneas por celda. Sin párrafos.</div>
+          <table class="stbl">
+            <thead><tr><th>#</th><th>Activación</th><th>Parte central</th><th>Vuelta a la calma</th></tr></thead>
+            <tbody id="ses-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- FASES SdA -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-layers-subtract" style="color:var(--teal2)"></i><span class="pfslabel" style="color:var(--tealL)">Fases SdA</span><span class="pfstitle">¿En qué fases se distribuyen las sesiones?</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="hint">Selecciona las fases que se trabajan en esta UD. Cada sesión debe poder encajar en alguna fase.</div>
+          <div class="fase-grid">
+            <div class="fase-pill fp-o" onclick="tFase(this)"><i class="ti ti-target"></i>Motivar</div>
+            <div class="fase-pill fp-b" onclick="tFase(this)"><i class="ti ti-bolt"></i>Activar</div>
+            <div class="fase-pill fp-t" onclick="tFase(this)"><i class="ti ti-search"></i>Explorar</div>
+            <div class="fase-pill fp-p" onclick="tFase(this)"><i class="ti ti-building"></i>Estructurar</div>
+            <div class="fase-pill fp-g" onclick="tFase(this)"><i class="ti ti-rocket"></i>Aplicar</div>
+            <div class="fase-pill fp-a" onclick="tFase(this)"><i class="ti ti-circle-check"></i>Concluir</div>
+          </div>
+          <div class="sublabel" style="margin-top:12px;">Descripción de cómo se distribuyen</div>
+          <textarea class="pftx" id="f-fases" placeholder="Ej: Sesión 1 (Motivar): presentación del reto. Sesiones 2-4 (Explorar/Estructurar): práctica guiada..."></textarea>
+        </div>
+      </div>
+
+      <!-- PRINCIPIOS PEDAGÓGICOS -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-sparkles" style="color:var(--plum2)"></i><span class="pfslabel" style="color:var(--plumL)">Principios pedagógicos</span><span class="pfstitle">Ejes transversales de la UD</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="hint">Marca los principios que se trabajan en esta UD e indica brevemente cómo.</div>
+          <div class="pp-grid">
+            <div class="pp-pill" onclick="tPP(this)" data-pp="PAL · Lectura">PAL<br><span style="font-weight:400;font-size:11px;">Lectura</span></div>
+            <div class="pp-pill" onclick="tPP(this)" data-pp="TDE — TIC">TDE<br><span style="font-weight:400;font-size:11px;">TIC</span></div>
+            <div class="pp-pill" onclick="tPP(this)" data-pp="Cultura andaluza">Cultura<br><span style="font-weight:400;font-size:11px;">Andaluza</span></div>
+            <div class="pp-pill" onclick="tPP(this)" data-pp="Ed. emocional">Ed.<br><span style="font-weight:400;font-size:11px;">Emocional</span></div>
+            <div class="pp-pill" onclick="tPP(this)" data-pp="Razonamiento matemático">Raz.<br><span style="font-weight:400;font-size:11px;">Matemático</span></div>
+            <div class="pp-pill" onclick="tPP(this)" data-pp="Ed. sostenible">Ed.<br><span style="font-weight:400;font-size:11px;">Sostenible</span></div>
+            <div class="pp-pill" onclick="tPP(this)" data-pp="Ed. para la igualdad">Ed.<br><span style="font-weight:400;font-size:11px;">Igualdad</span></div>
+          </div>
+          <div class="sublabel" style="margin-top:12px;">¿Cómo se concretan en esta UD?</div>
+          <textarea class="pftx" id="f-pp" placeholder="Ej: PAL — los alumnos leen la ficha de ejercicios posturales. TIC — portfolio digital con vídeos de ejecución..."></textarea>
+        </div>
+      </div>
+
+      <!-- METODOLOGÍA -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-settings" style="color:var(--plum2)"></i><span class="pfslabel" style="color:var(--plumL)">Metodología</span><span class="pfstitle">Modelos pedagógicos, recursos y agrupamiento</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="sublabel">Modelos pedagógicos activos</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">AC — Aprendizaje Cooperativo</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">ABR — Aprendizaje Basado en Retos</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">MRPS — Responsabilidad Personal y Social</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">MCID / TGfU — Comprensivo</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">MED — Educación Deportiva</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">EA — Estilo Actitudinal</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">EFRS — EF y para la Salud</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">ACM — Autoconstrucción materiales</span>
+            <span class="chip" onclick="tChip(this,'sel-p')" data-f="mod">ApS — Aprendizaje-Servicio</span>
+          </div>
+          <div class="sublabel">Recursos didácticos</div>
+          <textarea class="pftx" id="f-rec" placeholder="Humanos: docente, especialistas, familias...&#10;Materiales: convencionales, alternativos, autoconstruidos...&#10;Espaciales: gimnasio, patio, entorno del barrio..." style="min-height:80px;"></textarea>
+        </div>
+      </div>
+
+      <!-- DUA Y NEAE -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-accessible" style="color:var(--orange2)"></i><span class="pfslabel" style="color:var(--orange2)">Atención a la diversidad</span><span class="pfstitle">DUA 3.0 y alumnado NEAE</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="sublabel">Principios DUA activos en esta UD</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="dua">Representación</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="dua">Acción y expresión</span>
+            <span class="chip" onclick="tChip(this,'sel-o')" data-f="dua">Compromiso</span>
+          </div>
+          <div class="sublabel">Refuerzo</div>
+          <textarea class="pftx" id="f-ref" placeholder="Medidas de simplificación del reto para alumnado con dificultades..."></textarea>
+          <div class="sublabel">Profundización / Ampliación</div>
+          <textarea class="pftx" id="f-amp" placeholder="Retos adicionales, variabilidad, diseño de variantes propias..."></textarea>
+          <div class="sublabel">Medidas para tus 2 alumnos NEAE</div>
+          <textarea class="pftx" id="f-neae" placeholder="Alumno/a 1 (indica NEAE): medida concreta durante esta UD...&#10;Alumno/a 2 (indica NEAE): medida concreta durante esta UD..." style="min-height:80px;"></textarea>
+        </div>
+      </div>
+
+      <!-- EVALUACIÓN -->
+      <div class="pfs">
+        <div class="pfsh" onclick="toggle(this)"><i class="ti ti-chart-bar" style="color:var(--teal2)"></i><span class="pfslabel" style="color:var(--tealL)">Evaluación</span><span class="pfstitle">Técnicas, instrumentos y evidencias</span><i class="ti ti-chevron-down pfchev"></i></div>
+        <div class="pfb">
+          <div class="sublabel">Técnicas</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="tec">Observación directa</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="tec">Análisis de producciones</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="tec">Autoevaluación</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="tec">Coevaluación</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="tec">Heteroevaluación</span>
+          </div>
+          <div class="sublabel">Instrumentos</div>
+          <div class="chips">
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="inst">Rúbrica</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="inst">Lista de cotejo</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="inst">Escala de valoración</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="inst">Diana de evaluación</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="inst">Portfolio digital</span>
+            <span class="chip" onclick="tChip(this,'sel-t')" data-f="inst">Vídeo de actuación</span>
+          </div>
+          <div class="sublabel">Evidencias y trazabilidad</div>
+          <textarea class="pftx" id="f-evid" placeholder="¿Qué queda registrado y dónde? ¿Cómo conecta cada evidencia con el criterio de evaluación?"></textarea>
+        </div>
+      </div>
+
+    </div><!-- end pfgrid -->
+
+    <div style="display:flex;align-items:center;margin-top:8px;">
+      <button class="verbtn" onclick="showResult()"><i class="ti ti-eye"></i> Ver mi plantilla completa</button>
+      <button class="rstbtn" onclick="resetForm()"><i class="ti ti-refresh"></i> Reiniciar</button>
+    </div>
+
+    <div class="rbox" id="rbox" style="display:none;">
+      <div class="rtitle"><i class="ti ti-check" style="color:var(--tealL)"></i> Tu plantilla — <span id="r-name"></span></div>
+      <div class="rgrid" id="rgrid"></div>
+    </div>
+
+  </div><!-- end workspace -->
+</div><!-- end practica -->
+
+<script>
+const UDS=[
+  {badge:'T1 · UD 1',name:'Higiene postural',sda:'SdA: "Salva tu espalda"'},
+  {badge:'T1 · UD 4',name:'Actividades en la naturaleza',sda:'SdA: "Exploradores de La Misericordia"'},
+  {badge:'T2 · UD 7',name:'Juegos tradicionales',sda:'SdA: "La memoria del juego"'},
+  {badge:'T3 · UD',name:'Expresión corporal y danza',sda:'SdA: "Nuestro videoclip"'}
+];
+
+function setMode(m,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('view-'+m).classList.add('active');
+  btn.classList.add('active');
+}
+
+function setBanco(id,btn){
+  document.querySelectorAll('.bpanel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.btab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('bp-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function selectUD(i){
+  const ud=UDS[i];
+  document.getElementById('ud-selector').style.display='none';
+  document.getElementById('workspace').classList.add('active');
+  document.getElementById('ws-badge').textContent=ud.badge;
+  document.getElementById('ws-title').textContent=ud.name;
+  document.getElementById('ws-sda').textContent=ud.sda;
+  document.getElementById('r-name').textContent=ud.name;
+  buildSessions();
+  document.getElementById('rbox').style.display='none';
+}
+
+function goBack(){
+  document.getElementById('ud-selector').style.display='block';
+  document.getElementById('workspace').classList.remove('active');
+  resetForm();
+}
+
+function buildSessions(){
+  const tb=document.getElementById('ses-tbody');
+  tb.innerHTML='';
+  for(let i=1;i<=6;i++){
+    tb.innerHTML+=`<tr><td class="snum">${i}</td><td><input class="sinput" placeholder="Activación ${i}..." data-s="${i}" data-c="a"></td><td><input class="sinput" placeholder="Parte central ${i}..." data-s="${i}" data-c="c"></td><td><input class="sinput" placeholder="Vuelta calma ${i}..." data-s="${i}" data-c="v"></td></tr>`;
+  }
+}
+
+function toggle(head){head.parentElement.classList.toggle('open');}
+
+function tChip(c,cls){
+  const all=['sel-o','sel-b','sel-t','sel-p'];
+  const on=all.some(x=>c.classList.contains(x));
+  all.forEach(x=>c.classList.remove(x));
+  if(!on)c.classList.add(cls);
+}
+
+function tFase(pill){pill.classList.toggle('fsel');}
+function tPP(pill){pill.classList.toggle('ppsel');}
+
+function getChips(f){
+  return [...document.querySelectorAll(`.chip[data-f="${f}"]`)]
+    .filter(c=>['sel-o','sel-b','sel-t','sel-p'].some(x=>c.classList.contains(x)))
+    .map(c=>c.textContent.trim());
+}
+function getFases(){
+  return [...document.querySelectorAll('.fase-pill.fsel')].map(p=>p.textContent.replace(/\s+/g,' ').trim());
+}
+function getPP(){
+  return [...document.querySelectorAll('.pp-pill.ppsel')].map(p=>p.dataset.pp);
+}
+function getSessions(){
+  const r=[];
+  for(let i=1;i<=6;i++){
+    const a=document.querySelector(`input[data-s="${i}"][data-c="a"]`)||{};
+    const c=document.querySelector(`input[data-s="${i}"][data-c="c"]`)||{};
+    const v=document.querySelector(`input[data-s="${i}"][data-c="v"]`)||{};
+    r.push({n:i,a:a.value||'—',c:c.value||'—',v:v.value||'—'});
+  }
+  return r;
+}
+
+function chipsH(arr,cls){
+  if(!arr.length)return '<span style="color:#555;font-size:12px;">Sin selección</span>';
+  return '<div class="cdsp">'+arr.map(t=>`<span class="cd cd-${cls}">${t}</span>`).join('')+'</div>';
+}
+function txtH(t){return t||'<span style="color:#555;">—</span>';}
+
+function showResult(){
+  const ses=getSessions();
+  const sesTxt=ses.map(s=>`<div style="font-size:11.5px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);"><span style="color:var(--orange2);font-weight:700;">S${s.n}</span> <span style="color:#666;">A:</span> ${s.a} <span style="color:#666;">/ C:</span> ${s.c} <span style="color:#666;">/ V:</span> ${s.v}</div>`).join('');
+  const fases=getFases();
+  const pp=getPP();
+  document.getElementById('rgrid').innerHTML=`
+    <div class="ri"><div class="ri-label">Contexto</div><div class="ri-val">${chipsH(getChips('ctx'),'o')}<div style="margin-top:6px;font-size:12px;color:var(--textD);">${document.getElementById('f-ctx').value||''}</div></div></div>
+    <div class="ri"><div class="ri-label">ODS</div><div class="ri-val">${chipsH(getChips('ods'),'b')}</div></div>
+    <div class="ri"><div class="ri-label">Funciones ejecutivas</div><div class="ri-val">${chipsH(getChips('fe'),'o')}</div></div>
+    <div class="ri"><div class="ri-label">Competencias clave</div><div class="ri-val">${chipsH(getChips('cc'),'b')}</div></div>
+    <div class="ri"><div class="ri-label">Competencias específicas EF</div><div class="ri-val">${chipsH(getChips('ce'),'t')}</div></div>
+    <div class="ri"><div class="ri-label">Saberes básicos</div><div class="ri-val">${chipsH(getChips('sab'),'t')}</div></div>
+    <div class="ri sp2"><div class="ri-label">Tarea principal</div><div class="ri-val">${txtH(document.getElementById('f-tarea').value)}</div></div>
+    <div class="ri sp2"><div class="ri-label">Sesiones</div><div class="ri-val">${sesTxt}</div></div>
+    <div class="ri"><div class="ri-label">Fases SdA</div><div class="ri-val">${chipsH(fases,'g')}<div style="margin-top:6px;font-size:12px;color:var(--textD);">${document.getElementById('f-fases').value||''}</div></div></div>
+    <div class="ri"><div class="ri-label">Principios pedagógicos</div><div class="ri-val">${chipsH(pp,'p')}<div style="margin-top:6px;font-size:12px;color:var(--textD);">${document.getElementById('f-pp').value||''}</div></div></div>
+    <div class="ri"><div class="ri-label">Modelos pedagógicos</div><div class="ri-val">${chipsH(getChips('mod'),'p')}</div></div>
+    <div class="ri"><div class="ri-label">Recursos</div><div class="ri-val" style="white-space:pre-line;">${txtH(document.getElementById('f-rec').value)}</div></div>
+    <div class="ri"><div class="ri-label">DUA</div><div class="ri-val">${chipsH(getChips('dua'),'o')}</div></div>
+    <div class="ri"><div class="ri-label">Refuerzo / Ampliación</div><div class="ri-val"><div style="font-size:12px;color:var(--textD);">${txtH(document.getElementById('f-ref').value)}</div><div style="margin-top:4px;font-size:12px;color:var(--textD);">${txtH(document.getElementById('f-amp').value)}</div></div></div>
+    <div class="ri sp2"><div class="ri-label">Estrategias NEAE</div><div class="ri-val" style="white-space:pre-line;">${txtH(document.getElementById('f-neae').value)}</div></div>
+    <div class="ri"><div class="ri-label">Técnicas evaluación</div><div class="ri-val">${chipsH(getChips('tec'),'t')}</div></div>
+    <div class="ri"><div class="ri-label">Instrumentos</div><div class="ri-val">${chipsH(getChips('inst'),'t')}</div></div>
+    <div class="ri sp2"><div class="ri-label">Evidencias y trazabilidad</div><div class="ri-val">${txtH(document.getElementById('f-evid').value)}</div></div>
+  `;
+  document.getElementById('rbox').style.display='block';
+  document.getElementById('rbox').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resetForm(){
+  document.querySelectorAll('.chip').forEach(c=>['sel-o','sel-b','sel-t','sel-p'].forEach(x=>c.classList.remove(x)));
+  document.querySelectorAll('.fase-pill').forEach(p=>p.classList.remove('fsel'));
+  document.querySelectorAll('.pp-pill').forEach(p=>p.classList.remove('ppsel'));
+  document.querySelectorAll('.pftx').forEach(t=>t.value='');
+  document.querySelectorAll('.sinput').forEach(i=>i.value='');
+  document.getElementById('rbox').style.display='none';
+}
+</script>
+</body>
+</html>
